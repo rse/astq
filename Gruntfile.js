@@ -43,13 +43,13 @@ module.exports = function (grunt) {
                     "lib/astq.js": [ "src/**/*.js" ]
                 },
                 options: {
-                    transform: [ "6to5ify", "pegjs-otf/transform" ],
+                    transform: [ "6to5ify", "pegjs-otf/transform", "browserify-shim" ],
                     plugin: [
                         [ "minifyify", { map: "astq.map", output: "lib/astq.map" } ],
                         [ "browserify-header" ]
                     ],
                     browserifyOptions: {
-                        standalone: "ASTY",
+                        standalone: "ASTQ",
                         debug: true
                     }
                 }
