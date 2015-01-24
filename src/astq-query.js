@@ -30,8 +30,8 @@ let PEG      = require("pegjs-otf")
 let PEGUtil  = require("pegjs-util")
 
 let ASTQQueryParse = PEG.buildParserFromFile(
-    __dirname + "/astq-query-parse.pegjs", 
-    { optimize: "size", cache: true }
+    __dirname + "/astq-query-parse.pegjs",
+    { optimize: "speed", cache: true }
 )
 
 let ASTQQueryExec = require("./astq-query-exec.js")
