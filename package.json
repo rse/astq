@@ -1,6 +1,6 @@
 {
     "name":        "astq",
-    "version":     "0.0.1",
+    "version":     "0.0.2",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
     "main":        "lib/astq.js",
