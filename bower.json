@@ -1,14 +1,16 @@
 {
-    "name":        "tqe",
+    "name":        "astq",
     "version":     "0.9.0",
-    "description": "Tree Query Engine",
-    "main":        "lib/tqe.js",
-    "homepage":    "https://github.com/rse/tqe",
+    "description": "Abstract Syntax Tree (AST) Query Engine",
+    "main":        "lib/astq.js",
+    "homepage":    "https://github.com/rse/astq",
     "license":     "MIT",
     "authors": [
         "Ralf S. Engelschall <rse@engelschall.com>"
     ],
-    "keywords": [ "tree", "query", "engine" ],
+    "keywords": [
+        "abstract", "syntax", "tree", "query", "engine", "adaptable"
+    ],
     "dependencies": {
     },
     "ignore": [
