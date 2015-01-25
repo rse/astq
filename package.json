@@ -32,13 +32,9 @@
         "grunt-browserify":     "~3.3.0",
         "grunt-mocha-test":     "~0.12.7",
         "chai":                 "~1.10.0",
-        "6to5":                 "~2.13.7",
         "6to5ify":              "~3.1.2",
         "minifyify":            "~6.1.0",
-        "browserify-shim":      "~3.8.2",
         "browserify-header":    "~0.9.1",
         "browserify-derequire": "~0.9.1"
-    },
-    "browserify-shim": {
     }
 }
