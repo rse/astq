@@ -281,7 +281,7 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
             case "==": result = v1 === v2; break
             case "!=": result = v1 !== v2; break
             case "<=": result = util.coerce(v1, "number") <= util.coerce(v2, "number"); break
-            case ">=": result = util.coerce(v1, "number") >= util.coerce(v2, "number"); break 
+            case ">=": result = util.coerce(v1, "number") >= util.coerce(v2, "number"); break
             case "<":  result = util.coerce(v1, "number") <  util.coerce(v2, "number"); break
             case ">":  result = util.coerce(v1, "number") >  util.coerce(v2, "number"); break
             case "=~": result = util.coerce(v1, "string").match(util.coerce(v2, "regexp")) !== null; break

@@ -103,7 +103,7 @@ class ASTQCache {
                 newer:   null,
                 key:     key,
                 val:     val,
-                expires: expires 
+                expires: expires
             }
             this._index[key] = bucket
             this._attach(bucket)

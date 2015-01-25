@@ -46,7 +46,7 @@ let stdfuncs = {
         for (let i = 0; i < pchilds.length; i++)
             if (pchilds[i] === T)
                 return (i + 1)
-        throw new Error("cannot find myself") 
+        throw new Error("cannot find myself")
     },
 
     /*  check position of node between siblings  */
