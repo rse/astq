@@ -20,9 +20,9 @@
     "homepage": "https://github.com/rse/astq",
     "bugs":     "https://github.com/rse/astq/issues",
     "dependencies": {
-        "pegjs-otf":            "~0.9.1",
-        "pegjs-util":           "~0.9.8",
-        "asty":                 "~0.9.8"
+        "pegjs-otf":            "~1.0.0",
+        "pegjs-util":           "~1.0.0",
+        "asty":                 "~1.0.0"
     },
     "devDependencies": {
         "grunt":                "~0.4.5",

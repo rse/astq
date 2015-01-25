@@ -143,6 +143,8 @@ parameter, literal value, parenthesis expression or path of a sub-query.
   Register a custom tree access adapter to support arbitrary AST-style
   data structures. The `ASTQAdapter` has to conform to a particular
   duck-typed interface. See below for more information.
+  By default ASTq has built-in adapters for ASTy, XML DOM and Mozilla AST.
+  Calling `adapter()` causes these to be removed with the custom adapter.
 
         /*  the built-in implementation for supporting ASTy  */
         astq.adapter({

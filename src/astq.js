@@ -38,15 +38,16 @@ let ASTQ = class ASTQ {
         this._adapter = new ASTQAdapter()
         this._funcs   = new ASTQFuncs()
         this._cache   = new ASTQCache()
-        this.adapter(ASTQAdapterASTY)
-        this.adapter(ASTQAdapterMOZAST)
-        this.adapter(ASTQAdapterXMLDOM)
+        this._adapter.register(ASTQAdapterMOZAST)
+        this._adapter.register(ASTQAdapterXMLDOM)
+        this._adapter.register(ASTQAdapterASTY)
         for (let name in ASTQFuncsSTD)
             this.func(name, ASTQFuncsSTD[name])
     }
     adapter (adapter) {
         if (arguments.length !== 1)
             throw new Error("ASTQ#adapter: invalid number of arguments")
+        this._adapter.unregister()
         this._adapter.register(adapter)
         return this
     }

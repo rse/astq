@@ -38,6 +38,7 @@ let ASTQQueryExec = require("./astq-query-exec.js")
 
 let ASTQQuery = class ASTQQuery {
     constructor (selector) {
+        this.asty = new ASTY()
         this.ast = null
         if (selector)
             this.compile(selector)
@@ -49,7 +50,7 @@ let ASTQQuery = class ASTQQuery {
         let result = PEGUtil.parse(ASTQQueryParse, selector, {
             startRule: "query",
             makeAST: (line, column, offset, args) => {
-                return ASTY.apply(null, args).pos(line, column, offset)
+                return this.asty.create.apply(this.asty, args).pos(line, column, offset)
             }
         })
         if (result.error !== null)

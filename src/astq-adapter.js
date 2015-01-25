@@ -28,7 +28,20 @@ class ASTQAdapter {
         return this
     }
     register (adapter) {
-        this._adapters.push(adapter)
+        this._adapters.unshift(adapter)
+        return this
+    }
+    unregister (adapter) {
+        if (adapter === undefined)
+            this._adapters = []
+        else {
+            let adapters = []
+            for (let i = 0; i < this._adapters.length; i++)
+                if (this._adapters[i] !== adapter)
+                    adapters.push(this._adapters[i])
+            this._adapters = adapters
+        }
+        return this
     }
     select (node) {
         for (let i = 0; i < this._adapters.length; i++)
