@@ -35,22 +35,49 @@ module.exports = function (grunt) {
                 jshintrc: "jshint.json"
             },
             "gruntfile":  [ "Gruntfile.js" ],
-            "astq": [ "src/**/*.js" ]
+            "astq": [ "src/**/*.js", "tst/**/*.js" ]
         },
         browserify: {
-            "astq": {
+            "astq-browser": {
                 files: {
-                    "lib/astq.js": [ "src/**/*.js" ]
+                    "lib/astq.browser.js": [ "src/**/*.js" ]
                 },
                 options: {
-                    transform: [ "6to5ify", "pegjs-otf/transform", "browserify-shim" ],
+                    transform: [
+                        "6to5ify",
+                        "pegjs-otf/transform"
+                    ],
                     plugin: [
-                        [ "minifyify", { map: "astq.map", output: "lib/astq.map" } ],
-                        [ "browserify-header" ]
+                        [ "minifyify", { map: "astq.browser.map", output: "lib/astq.browser.map" } ],
+                        "browserify-derequire",
+                        "browserify-header"
                     ],
                     browserifyOptions: {
                         standalone: "ASTQ",
                         debug: true
+                    }
+                }
+            },
+            "astq-node": {
+                files: {
+                    "lib/astq.node.js": [ "src/**/*.js" ]
+                },
+                options: {
+                    transform: [
+                        "6to5ify",
+                        "pegjs-otf/transform"
+                    ],
+                    plugin: [
+                        "browserify-header"
+                    ],
+                    external: [
+                        "pegjs-otf",
+                        "pegjs-util",
+                        "asty"
+                    ],
+                    browserifyOptions: {
+                        standalone: "ASTQ",
+                        debug: false
                     }
                 }
             }
@@ -72,6 +99,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("default", [ "jshint", "browserify" ]);
-    grunt.registerTask("test", [ "mochaTest" ]);
+    grunt.registerTask("test", [ "jshint:astq", "browserify:astq-node", "mochaTest" ]);
 };
 

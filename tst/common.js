@@ -22,10 +22,8 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-require("6to5/register");
-
-/*  switch to strict mode  */
-"use strict";
+/* global global: true */
+/* global chai: true */
 
 /*  provide exception swallowing  */
 global.swallow = function (thrower) { try { thrower(); } catch (e) {} };

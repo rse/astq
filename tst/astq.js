@@ -22,17 +22,19 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* global describe: true */
+/* global it: true */
+/* global expect: true */
+
 describe("ASTq Library", function () {
     it("basic functionality", function () {
-        var ASTQ = require("../src/astq.js");
+        var ASTQ = require("../lib/astq.node.js");
         var astq = new ASTQ();
         expect(astq).to.respondTo("adapter")
         expect(astq).to.respondTo("func")
         expect(astq).to.respondTo("cache")
         expect(astq).to.respondTo("query")
 
-        var ASTYA = require("../src/astq-adapter-asty.js");
-        astq.adapter(ASTYA)
         astq.func("add", function (a, b) { return a + b })
 
         var ASTY = require("asty")

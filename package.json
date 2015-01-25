@@ -3,7 +3,7 @@
     "version":     "0.0.2",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
-    "main":        "lib/astq.js",
+    "main":        "lib/astq.node.js",
     "repository": {
         "type": "git",
         "url":  "https://github.com/rse/astq.git"
@@ -22,7 +22,7 @@
     "dependencies": {
         "pegjs-otf":            "~0.9.1",
         "pegjs-util":           "~0.9.8",
-        "asty":                 "~0.9.7"
+        "asty":                 "~0.9.8"
     },
     "devDependencies": {
         "grunt":                "~0.4.5",
@@ -36,9 +36,9 @@
         "6to5ify":              "~3.1.2",
         "minifyify":            "~6.1.0",
         "browserify-shim":      "~3.8.2",
-        "browserify-header":    "~0.9.0"
+        "browserify-header":    "~0.9.1",
+        "browserify-derequire": "~0.9.1"
     },
     "browserify-shim": {
-        "asty":                 "global:ASTY"
     }
 }

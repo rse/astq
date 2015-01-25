@@ -22,13 +22,9 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let stdfuncs = require("./astq-funcs-std.js")
-
 class ASTQFuncs {
     constructor () {
         this._funcs = {}
-        for (let name in stdfuncs)
-            this.register(name, stdfuncs[name])
         return this
     }
     register (name, func) {

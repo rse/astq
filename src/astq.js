@@ -22,10 +22,14 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let ASTQAdapter = require("./astq-adapter.js")
-let ASTQFuncs   = require("./astq-funcs.js")
-let ASTQCache   = require("./astq-cache.js")
-let ASTQQuery   = require("./astq-query.js")
+let ASTQAdapter       = require("./astq-adapter.js")
+let ASTQAdapterASTY   = require("./astq-adapter-asty.js")
+let ASTQAdapterMOZAST = require("./astq-adapter-xmldom.js")
+let ASTQAdapterXMLDOM = require("./astq-adapter-xmldom.js")
+let ASTQFuncs         = require("./astq-funcs.js")
+let ASTQFuncsSTD      = require("./astq-funcs-std.js")
+let ASTQCache         = require("./astq-cache.js")
+let ASTQQuery         = require("./astq-query.js")
 
 let ASTQ = class ASTQ {
     constructor () {
@@ -34,6 +38,11 @@ let ASTQ = class ASTQ {
         this._adapter = new ASTQAdapter()
         this._funcs   = new ASTQFuncs()
         this._cache   = new ASTQCache()
+        this.adapter(ASTQAdapterASTY)
+        this.adapter(ASTQAdapterMOZAST)
+        this.adapter(ASTQAdapterXMLDOM)
+        for (let name in ASTQFuncsSTD)
+            this.func(name, ASTQFuncsSTD[name])
     }
     adapter (adapter) {
         if (arguments.length !== 1)
