@@ -28,8 +28,10 @@ $ bower install astq
 About
 -----
 
-ASTq is a Abstract Syntax Tree (AST) query engine library for JavaScript,
-i.e., it provides ...FIXME...
+ASTq is a Abstract Syntax Tree (AST) query engine library for
+JavaScript, i.e., it allows you to query nodes of an arbitary AST-style
+hierarchical data structure with the help of a powerful XPath-inspired
+query language.
 
 Usage
 -----
