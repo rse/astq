@@ -40,6 +40,100 @@ The ASTq API, here assumed to be exposed through the variable `ASTQ`,
 provides the following methods (in a notation somewhat resembling
 TypeScript type definitions) is:
 
+### Selector/Query Domain Specific Language
+
+ASTq uses an XPath-inspired Domain Specific Language (DSL)
+for querying the supplied AST-style hierarchical data structure.
+
+#### By Example
+
+At its simplest form it looks like a POSIX filesystem path:
+
+    Foo/Bar/Quux
+
+This means: query and return all nodes of type `Quux`, which in turn
+are childs of nodes of type `Bar`, which in turn are childs of nodes of
+type `Foo`, which in turn has to be start node.
+
+A little bit sophisticated query, showing more of axis and a filter:
+
+    // Foo [ /Bar [ @bar == 'baz1' || @bar == 'baz2' ] && /Quux ]
+
+This means: query and return all nodes anywhere under the start node
+which are of type `Foo` and which have both childs of type `Bar` -- and
+with an attribute `bar` of values `baz1` or `baz2` -- and childs of type
+`Quux`.
+
+#### By Grammar
+
+In general a query consists of one or more individual query paths,
+separated by comma. A path consists of a mandatory initial query step
+and optionally zero or more subsequent query steps:
+
+    query            ::= path (, path)*
+    path             ::= step-initial step-subsequent*
+    step-initial     ::= axis? match filter?
+    step-subsequent  ::= axis  match filter?
+
+A query step consists of an (optional) axis (direct/any child,
+direct/any left/right sibling or direct/any parent), a (mandatory) type
+match and an (optional) filter expression:
+
+    axis             ::= "//" | "/" | "~~>" | "~>" | "<~~" | "<~" | "~~^" | "~^"
+    match            ::= id | "*"
+    filter           ::= "[" expr "]"
+
+The power comes through the optional filter expression: it can be
+applied to each query step and it recursively(!) can contain sub-queries!
+A combined example is:
+
+    // Foo / Bar [ / Baz [ @bar == 'baz' ] && / Quux ], // Foo2
+    +------------------------------------------------+  +-----+  query
+    +----+ +-----------------------------------------+  +-----+  path
+    +----+ +-----------------------------------------+  +-----+  step
+    ++     +       +                          +         ++       axis
+       +-+   +-+     +-+                        +--+       +--+  match
+                 +-----------------------------------+           filter
+                   +-------------------------------+             expr
+                         +---------------+                       filter
+                           +----------+                          expr
+
+The result of a query are always all nodes which match against the last
+query step of any path. The queries in filter expressions just lead to
+a boolean decision for the filter, but never cause any resulting nodes
+theirself.
+
+An expression can be either a ternary/binary conditional expression,
+logical expression, bitwise expression, relational expression,
+arithmethical expression, functional call, attribute reference, query
+parameter, literal value, parenthesis expression or path of a sub-query.
+
+    expr             ::= conditional
+                       | logical
+                       | bitwise
+                       | relational
+                       | arithmentical
+                       | function-call
+                       | attribute-ref
+                       | query-parameter
+                       | literal
+                       | parenthesis
+                       | sub-query
+    conditional      ::= expr "?" expr ":" expr
+                       | expr "?:" expr
+    logical          ::= expr ("&&" | "||") expr
+                       | "!" expr
+    bitwise          ::= expr ("&" | "|" | "<<" | ">>") expr
+                       | "~" expr
+    relational       ::= expr ("==" | "!=" | "<=" | ">=" | "<" | ">" | "=~" | "!~") expr
+    arithmethical    ::= expr ("+" | "-" | "*" | "/" | "%" | "**") expr
+    function-call    ::= id "(" (param ("," param)*)? ")"
+    attribute-ref    ::= "@" id
+    query-parameter  ::= "{" id "}"
+    literal          ::= string | regexp | number | value
+    parenthesis      ::= "(" expr ")"
+    sub-query        ::= path           // <-- ESSENTIAL RECURSION !!
+
 ### ASTQ API
 
 - `new ASTQ(): ASTQ`:<br/>
@@ -120,7 +214,6 @@ Mozilla AST. The `ASTQAdapter` interface is:
 
 - `ASTQAdapter#getNodeAttrValue(node: Object, attr: String): Any`:<br/>
   Return the value of attribute `attr` of `node`.
-
 
 License
 -------
