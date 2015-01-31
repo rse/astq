@@ -22,7 +22,7 @@
     "dependencies": {
         "pegjs-otf":            "~1.0.0",
         "pegjs-util":           "~1.0.0",
-        "asty":                 "~1.0.1"
+        "asty":                 "~1.0.2"
     },
     "devDependencies": {
         "grunt":                "~0.4.5",
