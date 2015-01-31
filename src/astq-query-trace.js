@@ -31,13 +31,11 @@ let ASTQQueryTrace = class ASTQQueryTrace {
         while ((node = node.parent()) !== null)
             depth++
         let prefix1 = util.pad("", 4 * depth)
-
         depth = 0
-        let node = T
+        node = T
         while ((node = this.adapter.getParentNode(node)) !== null)
             depth++
         let prefix2 = util.pad("", 4 * depth)
-
         return { prefix1, prefix2 }
     }
 
