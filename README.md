@@ -227,8 +227,11 @@ environments, of course.
 Additionally, there are two transpilation results: first, there is
 `astq.browser.js` (plus `astq.browser.map`) for Browser environments.
 This is a size-compressed variant but still with source-map for
-debugging. Second, there is `astq.node.js` for Node.js/IO.js
-environments. This is a variant without compression and no source-maps.
+debugging and with the external dependencies `asty`, `pegjs-otf` and
+`pegjs-util` directly embedded. Second, there is `astq.node.js` for
+Node.js/IO.js environments. This is a variant without compression and no
+source-maps and with the external dependencies `asty`, `pegjs-otf` and
+`pegjs-util` kept.
 
 License
 -------
