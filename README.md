@@ -217,6 +217,19 @@ Mozilla AST. The `ASTQAdapter` interface is:
 - `ASTQAdapter#getNodeAttrValue(node: Object, attr: String): Any`:<br/>
   Return the value of attribute `attr` of `node`.
 
+Implementation Notice
+---------------------
+
+Although ASTq is written in ECMAScript 6, it is transpiled to ECMAScript
+5 and this way runs in really all(!) current (as of 2015) JavaScript
+environments, of course.
+
+Additionally, there are two transpilation results: first, there is
+`astq.browser.js` (plus `astq.browser.map`) for Browser environments.
+This is a size-compressed variant but still with source-map for
+debugging. Second, there is `astq.node.js` for Node.js/IO.js
+environments. This is a variant without compression and no source-maps.
+
 License
 -------
 
