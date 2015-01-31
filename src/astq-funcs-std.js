@@ -56,7 +56,7 @@ let stdfuncs = {
         if (parent !== null) {
             let pchilds = A.getChildNodes(parent)
             if (num < 0)
-                num = pchilds - (num + 1);
+                num = pchilds - (num + 1)
             for (let i = 0; i < pchilds.length; i++)
                 if (pchilds[i] === T)
                     return ((i + 1) === num)
