@@ -161,8 +161,8 @@ parameter, literal value, parenthesis expression or path of a sub-query.
   to return an arbitrary value and optionally can access the current `node` with
   the help of the selected `adapter`.
 
-        /*  the built-in implementation for "type"  */
-        astq.func("type", function (adapter, node) => {
+        /*  the built-in implementation for "depth"  */
+        astq.func("depth", function (adapter, node) => {
             var depth = 1
             while ((node = adapter.getParentNode(node)) !== null)
                 depth++
