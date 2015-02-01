@@ -37,9 +37,9 @@ let ASTQQueryParse = PEG.buildParserFromFile(
 )
 
 /*  get query executor  */
-let ASTQQueryExec = require("./astq-query-exec.js")
+import ASTQQueryExec from "./astq-query-exec.js"
 
-let ASTQQuery = class ASTQQuery {
+export default class ASTQQuery {
     /*  create a new instance of the query instance  */
     constructor (selector) {
         this.asty = new ASTY()
@@ -82,6 +82,4 @@ let ASTQQuery = class ASTQQuery {
         return qe.execQuery(this.ast, node)
     }
 }
-
-module.exports = ASTQQuery
 

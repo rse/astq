@@ -51,5 +51,5 @@ let ASTQAdapterXMLDOM = {
     }
 }
 
-module.exports = ASTQAdapterXMLDOM
+export default ASTQAdapterXMLDOM
 

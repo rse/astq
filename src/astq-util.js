@@ -89,4 +89,5 @@ let ASTQUtil = {
     }
 }
 
-module.exports = ASTQUtil
+export default ASTQUtil
+

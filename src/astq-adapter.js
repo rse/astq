@@ -22,7 +22,7 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-class ASTQAdapter {
+export default class ASTQAdapter {
     constructor () {
         this._adapters = []
         return this
@@ -50,6 +50,4 @@ class ASTQAdapter {
         return undefined
     }
 }
-
-module.exports = ASTQAdapter
 

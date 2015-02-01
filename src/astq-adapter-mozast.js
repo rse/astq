@@ -76,5 +76,5 @@ let ASTQAdapterMozAST = {
     }
 }
 
-module.exports = ASTQAdapterMozAST
+export default ASTQAdapterMozAST
 

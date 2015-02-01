@@ -46,5 +46,5 @@ let ASTQAdapterASTY = {
     }
 }
 
-module.exports = ASTQAdapterASTY
+export default ASTQAdapterASTY
 

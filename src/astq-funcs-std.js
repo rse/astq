@@ -106,4 +106,4 @@ let stdfuncs = {
     }
 }
 
-module.exports = stdfuncs
+export default stdfuncs

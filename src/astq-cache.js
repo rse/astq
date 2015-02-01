@@ -22,7 +22,7 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-class ASTQCache {
+export default class ASTQCache {
     /*  create LRU cache instance  */
     constructor () {
         this._index         = {}
@@ -191,6 +191,4 @@ class ASTQCache {
         bucket.older.newer = bucket
     }
 }
-
-module.exports = ASTQCache
 

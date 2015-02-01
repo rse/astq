@@ -22,10 +22,10 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let util          = require("./astq-util.js")
-let ASTQQueryTrace = require("./astq-query-trace.js")
+import util           from "./astq-util.js"
+import ASTQQueryTrace from "./astq-query-trace.js"
 
-let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
+export default class ASTQQueryExec extends ASTQQueryTrace {
     constructor (adapter, params, funcs, trace) {
         this.adapter = adapter
         this.params  = params
@@ -391,4 +391,3 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
     }
 }
 
-module.exports = ASTQQueryExec

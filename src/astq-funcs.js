@@ -22,7 +22,7 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-class ASTQFuncs {
+export default class ASTQFuncs {
     constructor () {
         this._funcs = {}
         return this
@@ -38,4 +38,3 @@ class ASTQFuncs {
     }
 }
 
-module.exports = ASTQFuncs

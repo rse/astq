@@ -23,24 +23,20 @@
 */
 
 /*  load internal dependencies  */
-let ASTQAdapter       = require("./astq-adapter.js")
-let ASTQAdapterASTY   = require("./astq-adapter-asty.js")
-let ASTQAdapterMOZAST = require("./astq-adapter-mozast.js")
-let ASTQAdapterXMLDOM = require("./astq-adapter-xmldom.js")
-let ASTQFuncs         = require("./astq-funcs.js")
-let ASTQFuncsSTD      = require("./astq-funcs-std.js")
-let ASTQCache         = require("./astq-cache.js")
-let ASTQQuery         = require("./astq-query.js")
-let ASTQVersion       = require("./astq-version.js")
+import ASTQAdapter       from "./astq-adapter.js"
+import ASTQAdapterASTY   from "./astq-adapter-asty.js"
+import ASTQAdapterMOZAST from "./astq-adapter-mozast.js"
+import ASTQAdapterXMLDOM from "./astq-adapter-xmldom.js"
+import ASTQFuncs         from "./astq-funcs.js"
+import ASTQFuncsSTD      from "./astq-funcs-std.js"
+import ASTQCache         from "./astq-cache.js"
+import ASTQQuery         from "./astq-query.js"
+import ASTQVersion       from "./astq-version.js"
 
 /*  define the API class  */
-let ASTQ = class ASTQ {
+export default class ASTQ {
     /*  create a new ASTq instance  */
     constructor () {
-        /*  allow us to be called without "new"  */
-        if (!(this instanceof ASTQ))
-            return new ASTQ()
-
         /*  create adapter registry and pre-register standard adapters  */
         this._adapter = new ASTQAdapter()
         this._adapter.register(ASTQAdapterMOZAST)
@@ -132,6 +128,4 @@ let ASTQ = class ASTQ {
         return this.execute(node, this.compile(selector, trace), params, trace)
     }
 }
-
-module.exports = ASTQ
 

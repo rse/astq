@@ -27,10 +27,12 @@
 /* global $micro: false */
 /* global $date:  false */
 
-module.exports = {
+let version = {
     major: $major,
     minor: $minor,
     micro: $micro,
     date:  $date
 }
+
+export default version
 

@@ -22,9 +22,9 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let util = require("./astq-util.js")
+import util from "./astq-util.js"
 
-let ASTQQueryTrace = class ASTQQueryTrace {
+export default class ASTQQueryTrace {
     /*  determine output prefix based on tree depth  */
     prefixOf (Q, T) {
         let depth = 0
@@ -75,4 +75,3 @@ let ASTQQueryTrace = class ASTQQueryTrace {
     }
 }
 
-module.exports = ASTQQueryTrace
