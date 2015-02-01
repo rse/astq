@@ -30,10 +30,18 @@ describe("ASTq Library", function () {
     it("basic functionality", function () {
         var ASTQ = require("../lib/astq.node.js");
         var astq = new ASTQ();
+        expect(astq).to.respondTo("version")
         expect(astq).to.respondTo("adapter")
         expect(astq).to.respondTo("func")
         expect(astq).to.respondTo("cache")
+        expect(astq).to.respondTo("compile")
+        expect(astq).to.respondTo("execute")
         expect(astq).to.respondTo("query")
+
+        expect(astq.version()).to.have.property("major")
+        expect(astq.version()).to.have.property("minor")
+        expect(astq.version()).to.have.property("micro")
+        expect(astq.version()).to.have.property("date")
 
         astq.func("add", function (a, b) { return a + b })
 

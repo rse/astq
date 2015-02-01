@@ -156,6 +156,9 @@ parameter, literal value, parenthesis expression or path of a sub-query.
             getNodeAttrValue: function (node, attr) { return node.get(attr) }
         }
 
+- `ASTQ#version(): { major: Number, minor: Number, micro: Number, date: Number }`:<br/>
+  Return the current ASTq library version details.
+
 - `ASTQ#func(name: String, func: (adapter: Adapter, node: Object, [...]) => Any): ASTQ`:<br/>
   Register function named `name` by providing the callback `func` which has
   to return an arbitrary value and optionally can access the current `node` with

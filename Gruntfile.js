@@ -30,6 +30,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-mocha-test");
 
     grunt.initConfig({
+        version: grunt.file.readYAML("VERSION.yml"),
         jshint: {
             options: {
                 jshintrc: "jshint.json"
@@ -44,6 +45,12 @@ module.exports = function (grunt) {
                 },
                 options: {
                     transform: [
+                        [ "browserify-replace", { replace: [
+                            { from: /\$major/g, to: "<%= version.major %>" },
+                            { from: /\$minor/g, to: "<%= version.minor %>" },
+                            { from: /\$micro/g, to: "<%= version.micro %>" },
+                            { from: /\$date/g,  to: "<%= version.date  %>" }
+                        ]}],
                         "6to5ify",
                         "pegjs-otf/transform"
                     ],
@@ -64,6 +71,12 @@ module.exports = function (grunt) {
                 },
                 options: {
                     transform: [
+                        [ "browserify-replace", { replace: [
+                            { from: /\$major/g, to: "<%= version.major %>" },
+                            { from: /\$minor/g, to: "<%= version.minor %>" },
+                            { from: /\$micro/g, to: "<%= version.micro %>" },
+                            { from: /\$date/g,  to: "<%= version.date  %>" }
+                        ]}],
                         "6to5ify",
                         "pegjs-otf/transform"
                     ],

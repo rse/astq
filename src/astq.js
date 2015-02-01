@@ -31,6 +31,7 @@ let ASTQFuncs         = require("./astq-funcs.js")
 let ASTQFuncsSTD      = require("./astq-funcs-std.js")
 let ASTQCache         = require("./astq-cache.js")
 let ASTQQuery         = require("./astq-query.js")
+let ASTQVersion       = require("./astq-version.js")
 
 /*  define the API class  */
 let ASTQ = class ASTQ {
@@ -53,6 +54,11 @@ let ASTQ = class ASTQ {
 
         /*  create LRU cache  */
         this._cache = new ASTQCache()
+    }
+
+    /*  return the version information  */
+    version () {
+        return ASTQVersion
     }
 
     /*  switch to a custom adapter  */
