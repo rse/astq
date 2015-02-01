@@ -79,7 +79,7 @@ A query step consists of an (optional) axis (direct/any child,
 direct/any left/right sibling or direct/any parent), a (mandatory) type
 match and an (optional) filter expression:
 
-    axis             ::= "//" | "/" | "~~>" | "~>" | "<~~" | "<~" | "~~^" | "~^"
+    axis             ::= "//" | "/" | "+//" | "+/" | "-//" | "-/" | "../" | "..//"
     match            ::= id | "*"
     filter           ::= "[" expr "]"
 
