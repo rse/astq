@@ -23,12 +23,19 @@
 */
 
 let ASTQUtil = {
+    /*  pad a string with spaces to the left/right  */
     pad (str, num) {
-        if (num < 0)
-            return (str.length > -num ? str.substr(0, -num) : (str + Array((-num) + 1 - str.length).join(" ")))
-        else
-            return (str.length > num ? str.substr(0, num) : Array(num + 1 - str.length).join(" ") + str)
+        let n = num < 0 ? -num : num
+        if (str.length > n)
+            str = str.substr(0, n)
+        else {
+            let pad = Array((n + 1) - str.length).join(" ")
+            str = num < 0 ? (str + pad) : (pad + str)
+        }
+        return str
     },
+
+    /*  check whether value is "true" (or can be considered to be true)  */
     truthy (value) {
         let result
         switch (typeof value) {
@@ -46,7 +53,7 @@ let ASTQUtil = {
                 if (value !== null) {
                     result = true
                     if (value instanceof Array)
-                        result = (value.length > 0)
+                        result = value.length > 0
                 }
                 break
             default:
@@ -54,30 +61,31 @@ let ASTQUtil = {
         }
         return result
     },
+
+    /*  coerce value to particular type  */
     coerce (value, type) {
-        let result
-        try {
-            switch (type) {
-                case "boolean":
-                    result = Boolean(value)
-                    break
-                case "number":
-                    result = Number(value)
-                    break
-                case "string":
-                    result = String(value)
-                    break
-                case "regexp":
-                    result = new RegExp(value)
-                    break
-                default:
-                    result = value
+        if (typeof value !== type) {
+            try {
+                switch (type) {
+                    case "boolean":
+                        value = Boolean(value)
+                        break
+                    case "number":
+                        value = Number(value)
+                        break
+                    case "string":
+                        value = String(value)
+                        break
+                    case "regexp":
+                        value = new RegExp(value)
+                        break
+                }
+            }
+            catch (e) {
+                throw new Error("cannot coerce value into type " + type)
             }
         }
-        catch (e) {
-            throw new Error("cannot coerce value into type " + type)
-        }
-        return result
+        return value
     }
 }
 

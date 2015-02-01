@@ -23,6 +23,7 @@
 */
 
 class ASTQCache {
+    /*  create LRU cache instance  */
     constructor () {
         this._index         = {}
         this._oldHead       = { newer: null }
@@ -34,6 +35,8 @@ class ASTQCache {
         this._dispose       = (/* key, val, op */) => {}
         return this
     }
+
+    /*  get or set the cache limit  */
     limit (max) {
         let maxOld = this._max
         if (arguments.length > 0) {
@@ -42,19 +45,29 @@ class ASTQCache {
         }
         return maxOld
     }
+
+    /*  configure function to be called before item is disposed  */
     dispose (cb) {
         this._dispose = cb
         return this
     }
+
+    /*  get number of items  */
     length () {
         return this._cur
     }
+
+    /*  get keys of all items in order  */
     keys () {
         return this.each(function (val, key) { this.push(key) }, [])
     }
+
+    /*  get values of all items in order */
     values () {
         return this.each(function (val /*, key */) { this.push(val) }, [])
     }
+
+    /*  iterate over all items in order  */
     each (cb, ctx) {
         if (arguments < 2)
             ctx = this
@@ -66,10 +79,14 @@ class ASTQCache {
         }
         return ctx
     }
+
+    /*  check whether item exists under key  */
     has (key) {
         let bucket = this._index[key]
         return (bucket !== undefined)
     }
+
+    /*  get value under key without promoting item  */
     peek (key) {
         let bucket = this._index[key]
         if (bucket === undefined)
@@ -80,17 +97,23 @@ class ASTQCache {
         }
         return bucket.val
     }
+
+    /*  explicity promote item under key  */
     touch (key) {
         let bucket = this._index[key]
         if (bucket !== undefined)
             this._promote(bucket)
         return this
     }
+
+    /*  get value under key  */
     get (key) {
         let val = this.peek(key)
         this.touch(key)
         return val
     }
+
+    /*  set value under key  */
     set (key, val, expires) {
         if (arguments.length < 3)
             expires = Infinity
@@ -119,6 +142,8 @@ class ASTQCache {
         }
         return this
     }
+
+    /*  delete item under key  */
     del (key) {
         let bucket = this._index[key]
         if (bucket === undefined)
@@ -129,29 +154,37 @@ class ASTQCache {
         this._dispose(undefined, key, bucket.val, "del")
         return this
     }
+
+    /*  delete all items  */
     clear () {
         while (this._cur > 0)
             this.del(this._oldHead.newer.key)
         return this
     }
+
+    /*  INTERNAL: purge all LRU items above limit  */
     _purge () {
         while (this._cur > this._max)
             this.del(this._oldHead.newer.key)
     }
+
+    /*  INTERNAL: promote item  */
     _promote (bucket) {
         /*  promote bucket to be MRU bucket  */
         this._detach(bucket)
         this._attach(bucket)
     }
+
+    /*  INTERNAL: detach bucket from list  */
     _detach (bucket) {
-        /*  detach bucket from list  */
         bucket.older.newer = bucket.newer
         bucket.newer.older = bucket.older
         bucket.older       = null
         bucket.newer       = null
     }
+
+    /*  INTERNAL: attach bucket to list as MRU bucket  */
     _attach (bucket) {
-        /*  attach bucket to list as MRU bucket  */
         bucket.older       = this._newHead.older
         bucket.newer       = this._newHead
         bucket.newer.older = bucket

@@ -25,6 +25,7 @@
 let util = require("./astq-util.js")
 
 let ASTQQueryTrace = class ASTQQueryTrace {
+    /*  determine output prefix based on tree depth  */
     prefixOf (Q, T) {
         let depth = 0
         let node = Q
@@ -39,6 +40,7 @@ let ASTQQueryTrace = class ASTQQueryTrace {
         return { prefix1, prefix2 }
     }
 
+    /*  begin tracing step  */
     traceBegin (Q, T) {
         if (!this.trace)
             return
@@ -48,6 +50,7 @@ let ASTQQueryTrace = class ASTQQueryTrace {
             prefix2 + this.adapter.getNodeType(T))
     }
 
+    /*  end tracing step  */
     traceEnd (Q, T, val) {
         if (!this.trace)
             return

@@ -25,24 +25,30 @@
 /* global __dirname: true */
 /* global console: true */
 
+/*  load external dependencies  */
 let ASTY     = require("asty")
 let PEG      = require("pegjs-otf")
 let PEGUtil  = require("pegjs-util")
 
+/*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
 let ASTQQueryParse = PEG.buildParserFromFile(
     __dirname + "/astq-query-parse.pegjs",
     { optimize: "speed", cache: true }
 )
 
+/*  get query executor  */
 let ASTQQueryExec = require("./astq-query-exec.js")
 
 let ASTQQuery = class ASTQQuery {
+    /*  create a new instance of the query instance  */
     constructor (selector) {
         this.asty = new ASTY()
         this.ast = null
         if (selector)
             this.compile(selector)
     }
+
+    /*  compile query selector into AST  */
     compile (selector, trace) {
         if (trace)
             console.log("ASTQ: compile: +-------------------------------------------------------------------------------------------------------\n" +
@@ -62,9 +68,13 @@ let ASTQQuery = class ASTQQuery {
                 this.dump().replace(/\n$/, "").replace(/^/mg, "ASTQ: compile: | "))
         return this
     }
+
+    /*  dump the query AST  */
     dump () {
         return this.ast.dump()
     }
+
+    /*  execute the query AST onto node  */
     execute (node, adapter, params, funcs, trace) {
         if (trace)
             console.log("ASTQ: execute: +--------------------------------------------------------------+----------------------------------------")

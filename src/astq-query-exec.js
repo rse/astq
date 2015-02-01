@@ -106,7 +106,7 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
                 }
                 this.adapter.getChildNodes(T).forEach((T) => walk(T))
             }
-            else if (op === "<~") {
+            else if (op === "-/") {
                 /*  direct left sibling  */
                 let parent = this.adapter.getParentNode(T)
                 if (parent !== null) {
@@ -120,7 +120,7 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
                     matchAndTake(leftSibling)
                 }
             }
-            else if (op === "<~~") {
+            else if (op === "-//") {
                 /*  transitive left siblings  */
                 let parent = this.adapter.getParentNode(T)
                 if (parent !== null) {
@@ -132,7 +132,7 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
                     }
                 }
             }
-            else if (op === "~>") {
+            else if (op === "+/") {
                 /*  direct right sibling  */
                 let parent = this.adapter.getParentNode(T)
                 if (parent !== null) {
@@ -147,7 +147,7 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
                     }
                 }
             }
-            else if (op === "~~>") {
+            else if (op === "+//") {
                 /*  transitive right siblings  */
                 let parent = this.adapter.getParentNode(T)
                 if (parent !== null) {
@@ -163,13 +163,13 @@ let ASTQQueryExec = class ASTQQueryExec extends ASTQQueryTrace {
                     }
                 }
             }
-            else if (op === "~^") {
+            else if (op === "../") {
                 /*  direct parent  */
                 let parent = this.adapter.getParentNode(T)
                 if (parent !== null)
                     matchAndTake(parent)
             }
-            else if (op === "~~^") {
+            else if (op === "..//") {
                 /*  transitive parents  */
                 let node = T
                 while (true) {

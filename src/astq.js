@@ -22,6 +22,7 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*  load internal dependencies  */
 let ASTQAdapter       = require("./astq-adapter.js")
 let ASTQAdapterASTY   = require("./astq-adapter-asty.js")
 let ASTQAdapterMOZAST = require("./astq-adapter-mozast.js")
@@ -31,19 +32,30 @@ let ASTQFuncsSTD      = require("./astq-funcs-std.js")
 let ASTQCache         = require("./astq-cache.js")
 let ASTQQuery         = require("./astq-query.js")
 
+/*  define the API class  */
 let ASTQ = class ASTQ {
+    /*  create a new ASTq instance  */
     constructor () {
+        /*  allow us to be called without "new"  */
         if (!(this instanceof ASTQ))
             return new ASTQ()
+
+        /*  create adapter registry and pre-register standard adapters  */
         this._adapter = new ASTQAdapter()
-        this._funcs   = new ASTQFuncs()
-        this._cache   = new ASTQCache()
         this._adapter.register(ASTQAdapterMOZAST)
         this._adapter.register(ASTQAdapterXMLDOM)
         this._adapter.register(ASTQAdapterASTY)
+
+        /*  create function registry and pre-register standard functions  */
+        this._funcs = new ASTQFuncs()
         for (let name in ASTQFuncsSTD)
             this.func(name, ASTQFuncsSTD[name])
+
+        /*  create LRU cache  */
+        this._cache = new ASTQCache()
     }
+
+    /*  switch to a custom adapter  */
     adapter (adapter) {
         if (arguments.length !== 1)
             throw new Error("ASTQ#adapter: invalid number of arguments")
@@ -51,18 +63,24 @@ let ASTQ = class ASTQ {
         this._adapter.register(adapter)
         return this
     }
+
+    /*  register an additional function  */
     func (name, func) {
         if (arguments.length !== 2)
             throw new Error("ASTQ#func: invalid number of arguments")
         this._funcs.register(name, func)
         return this
     }
+
+    /*  configure the LRU cache limit  */
     cache (entries) {
         if (arguments.length !== 1)
             throw new Error("ASTQ#cache: invalid number of arguments")
         this._cache.limit(entries)
         return this
     }
+
+    /*  individual step 1: compile selector DSL into a query AST  */
     compile (selector, trace) {
         if (arguments.length < 1)
             throw new Error("ASTQ#compile: too less arguments")
@@ -78,6 +96,8 @@ let ASTQ = class ASTQ {
         }
         return query
     }
+
+    /*  individual step 2: execute query AST onto node  */
     execute (node, query, params, trace) {
         if (arguments.length < 2)
             throw new Error("ASTQ#execute: too less arguments")
@@ -92,6 +112,8 @@ let ASTQ = class ASTQ {
             throw new Error("ASTQ#execute: no suitable adapter found for node")
         return query.execute(node, adapter, params, this._funcs, trace)
     }
+
+    /*  all-in-one step: execute selector DSL onto node  */
     query (node, selector, params, trace) {
         if (arguments.length < 2)
             throw new Error("ASTQ#query: too less arguments")

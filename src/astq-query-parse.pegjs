@@ -23,6 +23,7 @@
 */
 
 {
+    /*  standard PEGUtil integration code  */
     var unroll = options.util.makeUnroll(line, column, offset, SyntaxError)
     var ast    = options.util.makeAST   (line, column, offset, options)
 }
@@ -57,7 +58,7 @@ queryStepSubsequent
         }
 
 queryAxis "axis"
-    =   op:$("//" / "/" / "~~>" / "~>" / "<~~" / "<~" / "~~^" / "~^") {
+    =   op:$("//" / "/" / "+//" / "+/" / "-//" / "-/" / "..//" / "../") {
             return ast("Axis").set({ op: op })
         }
 
