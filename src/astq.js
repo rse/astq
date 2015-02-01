@@ -24,7 +24,7 @@
 
 let ASTQAdapter       = require("./astq-adapter.js")
 let ASTQAdapterASTY   = require("./astq-adapter-asty.js")
-let ASTQAdapterMOZAST = require("./astq-adapter-xmldom.js")
+let ASTQAdapterMOZAST = require("./astq-adapter-mozast.js")
 let ASTQAdapterXMLDOM = require("./astq-adapter-xmldom.js")
 let ASTQFuncs         = require("./astq-funcs.js")
 let ASTQFuncsSTD      = require("./astq-funcs-std.js")
