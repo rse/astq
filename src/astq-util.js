@@ -22,9 +22,9 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let ASTQUtil = {
+export default class ASTQUtil {
     /*  pad a string with spaces to the left/right  */
-    pad (str, num) {
+    static pad (str, num) {
         let n = num < 0 ? -num : num
         if (str.length > n)
             str = str.substr(0, n)
@@ -33,10 +33,10 @@ let ASTQUtil = {
             str = num < 0 ? (str + pad) : (pad + str)
         }
         return str
-    },
+    }
 
     /*  check whether value is "true" (or can be considered to be true)  */
-    truthy (value) {
+    static truthy (value) {
         let result
         switch (typeof value) {
             case "boolean":
@@ -60,10 +60,10 @@ let ASTQUtil = {
                 result = false
         }
         return result
-    },
+    }
 
     /*  coerce value to particular type  */
-    coerce (value, type) {
+    static coerce (value, type) {
         if (typeof value !== type) {
             try {
                 switch (type) {
@@ -88,6 +88,3 @@ let ASTQUtil = {
         return value
     }
 }
-
-export default ASTQUtil
-
