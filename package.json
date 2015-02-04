@@ -1,6 +1,6 @@
 {
     "name":        "astq",
-    "version":     "1.1.0",
+    "version":     "1.2.0",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
     "main":        "lib/astq.node.js",
@@ -22,7 +22,8 @@
     "dependencies": {
         "pegjs-otf":            "~1.0.0",
         "pegjs-util":           "~1.0.0",
-        "asty":                 "~1.0.2"
+        "asty":                 "~1.0.2",
+        "cache-lru":            "~1.0.0"
     },
     "devDependencies": {
         "grunt":                "~0.4.5",

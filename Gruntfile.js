@@ -86,7 +86,8 @@ module.exports = function (grunt) {
                     external: [
                         "pegjs-otf",
                         "pegjs-util",
-                        "asty"
+                        "asty",
+                        "cache-lru"
                     ],
                     browserifyOptions: {
                         standalone: "ASTQ",

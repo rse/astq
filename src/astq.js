@@ -22,6 +22,9 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*  load external depdendencies  */
+let CacheLRU = require("cache-lru")
+
 /*  load internal dependencies  */
 import ASTQAdapter       from "./astq-adapter.js"
 import ASTQAdapterASTY   from "./astq-adapter-asty.js"
@@ -29,7 +32,6 @@ import ASTQAdapterMOZAST from "./astq-adapter-mozast.js"
 import ASTQAdapterXMLDOM from "./astq-adapter-xmldom.js"
 import ASTQFuncs         from "./astq-funcs.js"
 import ASTQFuncsSTD      from "./astq-funcs-std.js"
-import ASTQCache         from "./astq-cache.js"
 import ASTQQuery         from "./astq-query.js"
 import ASTQVersion       from "./astq-version.js"
 
@@ -49,7 +51,7 @@ export default class ASTQ {
             this.func(name, ASTQFuncsSTD[name])
 
         /*  create LRU cache  */
-        this._cache = new ASTQCache()
+        this._cache = new CacheLRU()
     }
 
     /*  return the version information  */
