@@ -111,7 +111,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask("default", [ "jshint", "browserify" ]);
+    grunt.registerTask("default", [ "jshint", "browserify", "mochaTest" ]);
     grunt.registerTask("test", [ "jshint:astq", "browserify:astq-node", "mochaTest" ]);
 };
 
