@@ -98,11 +98,10 @@ module.exports = function (grunt) {
         },
         mochaTest: {
             "astq": {
-                src: [ "tst/*.js", "!tst/common.js" ]
+                src: [ "tst/*.js" ]
             },
             options: {
                 reporter: "spec",
-                require: "tst/common.js",
                 timeout: 5*1000
             }
         },

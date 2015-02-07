@@ -22,13 +22,17 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* global describe: true */
-/* global it: true */
-/* global expect: true */
+/* global describe: false */
+/* global it: false */
+
+var chai = require("chai")
+var expect = chai.expect
+chai.config.includeStack = true
+
+var ASTQ = require("../lib/astq.node.js");
 
 describe("ASTq Library", function () {
     it("basic functionality", function () {
-        var ASTQ = require("../lib/astq.node.js");
         var astq = new ASTQ();
         expect(astq).to.respondTo("version")
         expect(astq).to.respondTo("adapter")
