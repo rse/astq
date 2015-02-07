@@ -33,7 +33,7 @@
         "grunt-browserify":     "~3.3.0",
         "grunt-mocha-test":     "~0.12.7",
         "chai":                 "~1.10.0",
-        "6to5ify":              "~4.0.0",
+        "6to5ify":              "~4.1.0",
         "minifyify":            "~6.1.0",
         "browserify-header":    "~0.9.1",
         "browserify-derequire": "~0.9.1",
