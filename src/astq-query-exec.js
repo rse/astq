@@ -200,21 +200,21 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
 
     execExpr (Q, T) {
         switch (Q.type()) {
-            case "ConditionalBinary":  return this.execExprConditionalBinary (Q, T)
+            case "ConditionalBinary":  return this.execExprConditionalBinary(Q, T)
             case "ConditionalTernary": return this.execExprConditionalTernary(Q, T)
-            case "Logical":            return this.execExprLogical           (Q, T)
-            case "Bitwise":            return this.execExprBitwise           (Q, T)
-            case "Relational":         return this.execExprRelational        (Q, T)
-            case "Arithmetical":       return this.execExprArithmetical      (Q, T)
-            case "Unary":              return this.execExprUnary             (Q, T)
-            case "FuncCall":           return this.execExprFuncCall          (Q, T)
-            case "Attribute":          return this.execExprAttribute         (Q, T)
-            case "Param":              return this.execExprParam             (Q, T)
-            case "LiteralString":      return this.execExprLiteralString     (Q, T)
-            case "LiteralRegExp":      return this.execExprLiteralRegExp     (Q, T)
-            case "LiteralNumber":      return this.execExprLiteralNumber     (Q, T)
-            case "LiteralValue":       return this.execExprLiteralValue      (Q, T)
-            case "Path":               return this.execExprPath              (Q, T)
+            case "Logical":            return this.execExprLogical(Q, T)
+            case "Bitwise":            return this.execExprBitwise(Q, T)
+            case "Relational":         return this.execExprRelational(Q, T)
+            case "Arithmetical":       return this.execExprArithmetical(Q, T)
+            case "Unary":              return this.execExprUnary(Q, T)
+            case "FuncCall":           return this.execExprFuncCall(Q, T)
+            case "Attribute":          return this.execExprAttribute(Q, T)
+            case "Param":              return this.execExprParam(Q, T)
+            case "LiteralString":      return this.execExprLiteralString(Q, T)
+            case "LiteralRegExp":      return this.execExprLiteralRegExp(Q, T)
+            case "LiteralNumber":      return this.execExprLiteralNumber(Q, T)
+            case "LiteralValue":       return this.execExprLiteralValue(Q, T)
+            case "Path":               return this.execExprPath(Q, T)
         }
     }
 
@@ -317,10 +317,12 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
         this.traceBegin(Q, T)
         let v = this.execExpr(Q.childs()[0], T)
         let result
+        /* jscs: disable */
         switch (Q.get("op")) {
             case "!": result = !util.coerce(v, "boolean"); break
             case "~": result = ~util.coerce(v, "number");  break
         }
+        /* jscs: enable */
         this.traceEnd(Q, T, result)
         return result
     }

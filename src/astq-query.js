@@ -51,7 +51,8 @@ export default class ASTQQuery {
     /*  compile query selector into AST  */
     compile (selector, trace) {
         if (trace)
-            console.log("ASTQ: compile: +-------------------------------------------------------------------------------------------------------\n" +
+            console.log("ASTQ: compile: +---------------------------------------" +
+                        "----------------------------------------------------------------\n" +
                 "ASTQ: compile: | " + selector)
         let result = PEGUtil.parse(ASTQQueryParse, selector, {
             startRule: "query",
@@ -64,7 +65,8 @@ export default class ASTQQuery {
                 PEGUtil.errorMessage(result.error, true).replace(/^/mg, "ERROR: "))
         this.ast = result.ast
         if (trace)
-            console.log("ASTQ: compile: +-------------------------------------------------------------------------------------------------------\n" +
+            console.log("ASTQ: compile: +---------------------------------------" +
+                        "----------------------------------------------------------------\n" +
                 this.dump().replace(/\n$/, "").replace(/^/mg, "ASTQ: compile: | "))
         return this
     }
@@ -77,7 +79,8 @@ export default class ASTQQuery {
     /*  execute the query AST onto node  */
     execute (node, adapter, params, funcs, trace) {
         if (trace)
-            console.log("ASTQ: execute: +--------------------------------------------------------------+----------------------------------------")
+            console.log("ASTQ: execute: +---------------------------------------" +
+                        "-----------------------+----------------------------------------")
         let qe = new ASTQQueryExec(adapter, params, funcs, trace)
         return qe.execQuery(this.ast, node)
     }
