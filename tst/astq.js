@@ -24,6 +24,7 @@
 
 /* global describe: false */
 /* global it: false */
+/* jshint -W030 */
 
 var chai = require("chai")
 var expect = chai.expect
@@ -66,7 +67,7 @@ describe("ASTq Library", function () {
         node3.add(node7)
 
         expect(astq.query(node1, "node1")).to.have.members([ node1 ])
-        expect(astq.query(node1, "badNodeName")).to.be.empty()
+        expect(astq.query(node1, "badNodeName")).to.be.empty
         expect(astq.query(node1, "*")).to.have.members([ node1 ])
         expect(astq.query(node1, "* [ * [ * [ node1 ]]]")).to.have.members([ node1 ])
         expect(astq.query(node1, "// * [ @foo == 'bar' ]")).to.have.members([ node6 ])
