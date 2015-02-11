@@ -29,11 +29,11 @@ var chai = require("chai")
 var expect = chai.expect
 chai.config.includeStack = true
 
-var ASTQ = require("../lib/astq.node.js");
+var ASTQ = require("../lib/astq.node.js")
 
 describe("ASTq Library", function () {
     it("basic functionality", function () {
-        var astq = new ASTQ();
+        var astq = new ASTQ()
         expect(astq).to.respondTo("version")
         expect(astq).to.respondTo("adapter")
         expect(astq).to.respondTo("func")
