@@ -28,6 +28,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-mocha-test");
+    grunt.loadNpmTasks("grunt-jscs");
 
     grunt.initConfig({
         version: grunt.file.readYAML("VERSION.yml"),
@@ -37,6 +38,17 @@ module.exports = function (grunt) {
             },
             "gruntfile":  [ "Gruntfile.js" ],
             "astq": [ "src/**/*.js", "tst/**/*.js" ]
+        },
+        jscs: {
+            "astq": {
+                options: {
+                    config: "jscs.json",
+                    esnext: true
+                },
+                files: {
+                    src: [ "src/**/*.js" ]
+                }
+            }
         },
         browserify: {
             "astq-browser": {
@@ -111,7 +123,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask("default", [ "jshint", "browserify", "mochaTest" ]);
+    grunt.registerTask("default", [ "jshint", "jscs", "browserify", "mochaTest" ]);
     grunt.registerTask("test", [ "jshint:astq", "browserify:astq-node", "mochaTest" ]);
 };
 
