@@ -63,7 +63,7 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        "6to5ify",
+                        "babelify",
                         "pegjs-otf/transform"
                     ],
                     plugin: [
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        "6to5ify",
+                        "babelify",
                         "pegjs-otf/transform"
                     ],
                     plugin: [
