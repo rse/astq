@@ -24,18 +24,18 @@
 
 /*  See also: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Parser_API  */
 
-let ASTQAdapterMozAST = {
-    taste (node) {
+export default class ASTQAdapterMozAST {
+    static taste (node) {
         return (
                typeof node      === "object"
             && typeof node.type === "string"
             && typeof node.loc  === "object"
         )
-    },
-    getParentNode (/* node */) {
+    }
+    static getParentNode (/* node */) {
         throw new Error("Mozilla SpiderMonkey AST does not support parent node traversal")
-    },
-    getChildNodes (node) {
+    }
+    static getChildNodes (node) {
         let childs = []
         for (let field in node) {
             if (   node.hasOwnProperty(field)
@@ -51,11 +51,11 @@ let ASTQAdapterMozAST = {
             }
         }
         return childs
-    },
-    getNodeType (node) {
+    }
+    static getNodeType (node) {
         return node.type
-    },
-    getNodeAttrNames (node) {
+    }
+    static getNodeAttrNames (node) {
         let names = []
         for (let field in node)
             if (   node.hasOwnProperty(field)
@@ -64,8 +64,8 @@ let ASTQAdapterMozAST = {
                 && field !== "loc")
                 names.push(field)
         return names
-    },
-    getNodeAttrValue (node, attr) {
+    }
+    static getNodeAttrValue (node, attr) {
         if (   node.hasOwnProperty(attr)
             && typeof node[attr] !== "object"
             && attr !== "type"
@@ -75,6 +75,4 @@ let ASTQAdapterMozAST = {
             return undefined
     }
 }
-
-export default ASTQAdapterMozAST
 

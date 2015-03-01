@@ -22,29 +22,27 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let ASTQAdapterASTY = {
-    taste (node) {
+export default class ASTQAdapterASTY {
+    static taste (node) {
         return (
                typeof node      === "object"
             && typeof node.ASTy === "boolean"
         )
-    },
-    getParentNode (node) {
+    }
+    static getParentNode (node) {
         return node.parent()
-    },
-    getChildNodes (node) {
+    }
+    static getChildNodes (node) {
         return node.childs()
-    },
-    getNodeType (node) {
+    }
+    static getNodeType (node) {
         return node.type()
-    },
-    getNodeAttrNames (node) {
+    }
+    static getNodeAttrNames (node) {
         return node.attrs()
-    },
-    getNodeAttrValue (node, attr) {
+    }
+    static getNodeAttrValue (node, attr) {
         return node.get(attr)
     }
 }
-
-export default ASTQAdapterASTY
 

@@ -22,8 +22,8 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-let ASTQAdapterXMLDOM = {
-    taste (node) {
+export default class ASTQAdapterXMLDOM {
+    static taste (node) {
         /* global Node: true */
         return (
                typeof Node === "object"
@@ -32,24 +32,22 @@ let ASTQAdapterXMLDOM = {
             && typeof node.nodeType === "number"
             && typeof node.nodeName === "string"
         )
-    },
-    getParentNode (node) {
+    }
+    static getParentNode (node) {
         return node.parentNode
-    },
-    getChildNodes (node) {
+    }
+    static getChildNodes (node) {
         return node.childNodes
-    },
-    getNodeType (node) {
+    }
+    static getNodeType (node) {
         return node.nodeName
-    },
-    getNodeAttrNames (node) {
+    }
+    static getNodeAttrNames (node) {
         return Array.prototype.slice.call(node.attributes, 0)
             .map((n) => n.nodeName)
-    },
-    getNodeAttrValue (node, attr) {
+    }
+    static getNodeAttrValue (node, attr) {
         return node.getAttribute(attr)
     }
 }
-
-export default ASTQAdapterXMLDOM
 
