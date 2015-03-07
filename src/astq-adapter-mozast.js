@@ -27,9 +27,10 @@
 export default class ASTQAdapterMozAST {
     static taste (node) {
         return (
-               typeof node      === "object"
+               typeof node === "object"
+            && node !== null
             && typeof node.type === "string"
-            && typeof node.loc  === "object"
+            && node.type !== ""
         )
     }
     static getParentNode (/* node */) {
@@ -40,7 +41,7 @@ export default class ASTQAdapterMozAST {
         for (let field in node) {
             if (   node.hasOwnProperty(field)
                 && this.taste(node[field]))
-                childs.push(node)
+                childs.push(node[field])
             else if (   node.hasOwnProperty(field)
                      && typeof node[field] === "object"
                      && node[field] instanceof Array) {
