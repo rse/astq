@@ -76,6 +76,7 @@ describe("ASTq Library", function () {
         expect(astq.query(node1, "// * [ pos() <= 1 ]")).to.have.members([ node2, node5 ])
         expect(astq.query(node1, "// * [ count(/*) == 3 ]")).to.have.members([ node3 ])
         expect(astq.query(node1, "// * [ depth() == 3 ]", {}, true)).to.have.members([ node5, node6, node7 ])
+        expect(astq.query(node1, "/ node2 ../ node1 / node2")).to.have.members([ node2 ])
     })
 })
 
