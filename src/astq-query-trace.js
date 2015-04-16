@@ -34,7 +34,7 @@ export default class ASTQQueryTrace {
         let prefix1 = util.pad("", 4 * depth)
         depth = 0
         node = T
-        while ((node = this.adapter.getParentNode(node)) !== null)
+        while ((node = this.adapter.getParentNode(node, "*")) !== null)
             depth++
         let prefix2 = util.pad("", 4 * depth)
         return { prefix1, prefix2 }

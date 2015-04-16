@@ -33,10 +33,10 @@ export default class ASTQAdapterXMLDOM {
             && typeof node.nodeName === "string"
         )
     }
-    static getParentNode (node) {
+    static getParentNode (node /*, type */) {
         return node.parentNode
     }
-    static getChildNodes (node) {
+    static getChildNodes (node /*, type */) {
         return node.childNodes
     }
     static getNodeType (node) {

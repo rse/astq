@@ -32,17 +32,17 @@ let stdfuncs = {
     "depth": (A, T) => {
         let depth = 1
         let node = T
-        while ((node = A.getParentNode(node)) !== null)
+        while ((node = A.getParentNode(node, "*")) !== null)
             depth++
         return depth
     },
 
     /*  return position of node between siblings  */
     "pos": (A, T) => {
-        let parent = A.getParentNode(T)
+        let parent = A.getParentNode(T, "*")
         if (parent === null)
             return 1
-        let pchilds = A.getChildNodes(parent)
+        let pchilds = A.getChildNodes(parent, "*")
         for (let i = 0; i < pchilds.length; i++)
             if (pchilds[i] === T)
                 return (i + 1)
@@ -52,9 +52,9 @@ let stdfuncs = {
     /*  check position of node between siblings  */
     "nth": (A, T, num) => {
         num = parseInt(num, 10)
-        let parent = A.getParentNode(T)
+        let parent = A.getParentNode(T, "*")
         if (parent !== null) {
-            let pchilds = A.getChildNodes(parent)
+            let pchilds = A.getChildNodes(parent, "*")
             if (num < 0)
                 num = pchilds - (num + 1)
             for (let i = 0; i < pchilds.length; i++)

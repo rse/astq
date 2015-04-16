@@ -33,15 +33,17 @@ export default class ASTQAdapterMozAST {
             && node.type !== ""
         )
     }
-    static getParentNode (node) {
+    static getParentNode (node, type) {
+        if (type !== "*" && type !== "parent")
+            throw new Error("no such axis named \"" + type + "\" for walking to parent nodes")
         if (typeof node.parent !== "undefined")
             return node.parent
         else
             throw new Error("Your Mozilla SpiderMonkey AST does not support parent node traversal")
     }
-    static getChildNodes (node) {
+    static getChildNodes (node, type) {
         let childs = []
-        for (let field in node) {
+        let checkField = (node, field) => {
             if (   node.hasOwnProperty(field)
                 && this.taste(node[field]))
                 childs.push(node[field])
@@ -53,6 +55,15 @@ export default class ASTQAdapterMozAST {
                        childs.push(node)
                 })
             }
+        }
+        if (type === "*") {
+            for (let field in node)
+                checkField(node, field)
+        }
+        else {
+            if (typeof node[type] === "undefined")
+                throw new Error("no such axis named \"" + type + "\" for walking to child nodes")
+            checkField(node, type)
         }
         return childs
     }

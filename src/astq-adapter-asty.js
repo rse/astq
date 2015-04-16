@@ -29,10 +29,10 @@ export default class ASTQAdapterASTY {
             && typeof node.ASTy === "boolean"
         )
     }
-    static getParentNode (node) {
+    static getParentNode (node /*, type */) {
         return node.parent()
     }
-    static getChildNodes (node) {
+    static getChildNodes (node /*, type */) {
         return node.childs()
     }
     static getNodeType (node) {

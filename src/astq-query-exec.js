@@ -95,23 +95,24 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
         /*  determine nodes along axis which potentially might match  */
         if (axis !== null) {
             let op = axis.get("op")
+            let t = axis.get("type")
             if (op === "/") {
                 /*  direct child nodes  */
-                this.adapter.getChildNodes(T).forEach((T) => matchAndTake(T))
+                this.adapter.getChildNodes(T, t).forEach((T) => matchAndTake(T))
             }
             else if (op === "//") {
                 /*  transitive child nodes  */
                 let walk = (T) => {
                     matchAndTake(T)
-                    this.adapter.getChildNodes(T).forEach((T) => walk(T)) /* RECURSION */
+                    this.adapter.getChildNodes(T, t).forEach((T) => walk(T)) /* RECURSION */
                 }
-                this.adapter.getChildNodes(T).forEach((T) => walk(T))
+                this.adapter.getChildNodes(T, t).forEach((T) => walk(T))
             }
             else if (op === "-/") {
                 /*  direct left sibling  */
-                let parent = this.adapter.getParentNode(T)
+                let parent = this.adapter.getParentNode(T, "*")
                 if (parent !== null) {
-                    let pchilds = this.adapter.getChildNodes(parent)
+                    let pchilds = this.adapter.getChildNodes(parent, t)
                     let leftSibling = null
                     for (let i = 0; i < pchilds.length; i++) {
                         if (pchilds[i] === T)
@@ -123,9 +124,9 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             }
             else if (op === "-//") {
                 /*  transitive left siblings  */
-                let parent = this.adapter.getParentNode(T)
+                let parent = this.adapter.getParentNode(T, "*")
                 if (parent !== null) {
-                    let pchilds = this.adapter.getChildNodes(parent)
+                    let pchilds = this.adapter.getChildNodes(parent, t)
                     for (let i = 0; i < pchilds.length; i++) {
                         if (pchilds[i] === T)
                             break
@@ -135,9 +136,9 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             }
             else if (op === "+/") {
                 /*  direct right sibling  */
-                let parent = this.adapter.getParentNode(T)
+                let parent = this.adapter.getParentNode(T, "*")
                 if (parent !== null) {
-                    let pchilds = this.adapter.getChildNodes(parent)
+                    let pchilds = this.adapter.getChildNodes(parent, t)
                     let i
                     for (i = 0; i < pchilds.length; i++)
                         if (pchilds[i] === T)
@@ -150,9 +151,9 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             }
             else if (op === "+//") {
                 /*  transitive right siblings  */
-                let parent = this.adapter.getParentNode(T)
+                let parent = this.adapter.getParentNode(T, "*")
                 if (parent !== null) {
-                    let pchilds = this.adapter.getChildNodes(parent)
+                    let pchilds = this.adapter.getChildNodes(parent, t)
                     let i
                     for (i = 0; i < pchilds.length; i++)
                         if (pchilds[i] === T)
@@ -166,7 +167,7 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             }
             else if (op === "../") {
                 /*  direct parent  */
-                let parent = this.adapter.getParentNode(T)
+                let parent = this.adapter.getParentNode(T, t)
                 if (parent !== null)
                     matchAndTake(parent)
             }
@@ -174,7 +175,7 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                 /*  transitive parents  */
                 let node = T
                 while (true) {
-                    let parent = this.adapter.getParentNode(node)
+                    let parent = this.adapter.getParentNode(node, t)
                     if (parent === null)
                         break
                     matchAndTake(parent)
