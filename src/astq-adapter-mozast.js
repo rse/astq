@@ -33,8 +33,11 @@ export default class ASTQAdapterMozAST {
             && node.type !== ""
         )
     }
-    static getParentNode (/* node */) {
-        throw new Error("Mozilla SpiderMonkey AST does not support parent node traversal")
+    static getParentNode (node) {
+        if (typeof node.parent !== "undefined")
+            return node.parent
+        else
+            throw new Error("Your Mozilla SpiderMonkey AST does not support parent node traversal")
     }
     static getChildNodes (node) {
         let childs = []
