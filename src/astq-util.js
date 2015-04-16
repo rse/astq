@@ -68,16 +68,20 @@ export default class ASTQUtil {
             try {
                 switch (type) {
                     case "boolean":
-                        value = Boolean(value)
+                        if (typeof value !== "boolean")
+                            value = Boolean(value)
                         break
                     case "number":
-                        value = Number(value)
+                        if (typeof value !== "number")
+                            value = Number(value)
                         break
                     case "string":
-                        value = String(value)
+                        if (typeof value !== "string")
+                            value = String(value)
                         break
                     case "regexp":
-                        value = new RegExp(value)
+                        if (!(typeof value === "object" && value instanceof RegExp))
+                            value = new RegExp(value)
                         break
                 }
             }
