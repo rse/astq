@@ -130,7 +130,12 @@ parameter, literal value, parenthesis expression or path of a sub-query.
     function-call    ::= id "(" (param ("," param)*)? ")"
     attribute-ref    ::= "@" id
     query-parameter  ::= "{" id "}"
+    id               ::= /[a-zA-Z_][a-zA-Z0-9_-]*/
     literal          ::= string | regexp | number | value
+    string           ::= /"(\\"|.)*"/ | /'(\\'|.)*'/
+    regexp           ::= /`(\\`|.)*`/
+    number           ::= /\d+(\.\d+)?$/
+    value            ::= "true" | "false" | "null" | "NaN" | "undefined"
     parenthesis      ::= "(" expr ")"
     sub-query        ::= path           // <-- ESSENTIAL RECURSION !!
 
