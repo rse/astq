@@ -174,7 +174,7 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             else if (op === "..//") {
                 /*  transitive parents  */
                 let node = T
-                while (true) {
+                for (;;) {
                     let parent = this.adapter.getParentNode(node, t)
                     if (parent === null)
                         break

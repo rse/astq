@@ -22,6 +22,8 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/* eslint no-console: 0 */
+
 import util from "./astq-util.js"
 
 export default class ASTQQueryTrace {

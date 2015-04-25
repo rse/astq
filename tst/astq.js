@@ -25,6 +25,7 @@
 /* global describe: false */
 /* global it: false */
 /* jshint -W030 */
+/* eslint no-unused-expressions: 0 */
 
 var chai = require("chai")
 var expect = chai.expect

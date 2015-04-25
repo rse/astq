@@ -24,6 +24,7 @@
 
 /* global __dirname: true */
 /* global console: true */
+/* eslint no-console: 0 */
 
 /*  load external dependencies  */
 let ASTY     = require("asty")
