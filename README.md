@@ -28,34 +28,30 @@ $ bower install astq
 About
 -----
 
-ASTq is a Abstract Syntax Tree (AST) query engine library for
+ASTq is an Abstract Syntax Tree (AST) query engine library for
 JavaScript, i.e., it allows you to query nodes of an arbitary AST-style
 hierarchical data structure with the help of a powerful XPath-inspired
-query language.
+query language. ASTq can operate on arbitrary AST-style data structures
+through the help of pluggable access adapters.
 
-Usage
------
-
-The ASTq API, here assumed to be exposed through the variable `ASTQ`,
-provides the following methods (in a notation somewhat resembling
-TypeScript type definitions) is:
-
-### Selector/Query Domain Specific Language
+Query Language
+--------------
 
 ASTq uses an XPath-inspired Domain Specific Language (DSL)
 for querying the supplied AST-style hierarchical data structure.
 
-#### By Example
+### By Example
 
-At its simplest form it looks like a POSIX filesystem path:
+At its simplest form, a query looks like a POSIX filesystem path:
 
     Foo/Bar/Quux
 
 This means: query and return all nodes of type `Quux`, which in turn
 are childs of nodes of type `Bar`, which in turn are childs of nodes of
-type `Foo`, which in turn has to be start node.
+type `Foo`, which in turn has to be the start node.
 
-A little bit sophisticated query, showing more of axis and a filter:
+A little bit more sophisticated query, showing more features,
+like axis, filter and optional whitespaces for padding:
 
     // Foo [ /Bar [ @bar == 'baz1' || @bar == 'baz2' ] && /Quux ]
 
@@ -64,32 +60,37 @@ which are of type `Foo` and which have both childs of type `Bar` -- and
 with an attribute `bar` of values `baz1` or `baz2` -- and childs of type
 `Quux`.
 
-#### By Grammar
+### By Grammar
 
-In general a query consists of one or more individual query paths,
+In general, a query consists of one or more individual query paths,
 separated by comma. A path consists of a mandatory initial query step
-and optionally zero or more subsequent query steps:
+and optionally zero or more subsequent query steps. The difference
+between initial and subsequent query steps is
+that an initial query step does not need an axis while all subsequent
+query steps require it.
 
     query            ::= path (, path)*
     path             ::= step-initial step-subsequent*
     step-initial     ::= axis? match filter?
     step-subsequent  ::= axis  match filter?
 
-A query step consists of an (optional) axis (direct/any child,
-direct/any left/right sibling or direct/any parent), a (mandatory) type
-match and an (optional) filter expression:
+A query step consists of an (optional) AST node search axis (direct/any child,
+direct/any left/right sibling or direct/any parent), a (mandatory) AST node type
+match and an (optional) AST node filter expression:
 
     axis             ::= ("//" | "/" | "+//" | "+/" | "-//" | "-/" | "../" | "..//") (":" id)?
     match            ::= id | "*"
     filter           ::= "[" expr "]"
 
-The power comes through the optional filter expression: it can be
-applied to each query step and it recursively(!) can contain sub-queries!
-A combined example is:
+The real power comes through the optional filter expression: it can be
+applied to each query step and it recursively(!) can contain sub-queries
+with the help of embedded query paths!
+An illustrating combined example is:
 
     // Foo / Bar [ / Baz [ @bar == 'baz' ] && / Quux ], // Foo2
-    +------------------------------------------------+  +-----+  query
-    +----+ +-----------------------------------------+  +-----+  path
+    +---------------------------------------------------------+  query
+    +------------------------------------------------+  +-----+  path
+                   +---------------------+    +-----+            path 
     +----+ +-----------------------------------------+  +-----+  step
     ++     +       +                          +         ++       axis
        +-+   +-+     +-+                        +--+       +--+  match
@@ -139,6 +140,13 @@ parameter, literal value, parenthesis expression or path of a sub-query.
     parenthesis      ::= "(" expr ")"
     sub-query        ::= path           // <-- ESSENTIAL RECURSION !!
 
+Application Programming Interface (API)
+---------------------------------------
+
+The ASTq API, here assumed to be exposed through the variable `ASTQ`,
+provides the following methods (in a notation somewhat resembling
+TypeScript type definitions):
+
 ### ASTQ API
 
 - `new ASTQ(): ASTQ`:<br/>
@@ -149,7 +157,7 @@ parameter, literal value, parenthesis expression or path of a sub-query.
   data structures. The `ASTQAdapter` has to conform to a particular
   duck-typed interface. See below for more information.
   By default ASTq has built-in adapters for ASTy, XML DOM and Mozilla AST.
-  Calling `adapter()` causes these to be removed with the custom adapter.
+  Calling `adapter()` causes these three to be replaced with a single custom adapter.
 
         /*  the built-in implementation for supporting ASTy  */
         astq.adapter({
