@@ -261,7 +261,7 @@ astq.query(ast, `
 `).forEach(function (node) {
     console.log(`${node.id.name}: ${node.init.value}`)
 })
-```
+
 $ babel-node sample.js
 bar: quux
 baz: 42
