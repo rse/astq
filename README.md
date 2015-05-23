@@ -233,6 +233,40 @@ Mozilla AST. The `ASTQAdapter` interface is:
 - `ASTQAdapter#getNodeAttrValue(node: Object, attr: String): Any`:<br/>
   Return the value of attribute `attr` of `node`.
 
+Example
+-------
+
+```
+$ cat sample.js
+const acorn = require("acorn")
+const ASTQ  = require("astq")
+
+let source = `
+    class Foo {
+        foo () {
+            const bar = "quux"
+            let baz = 42
+        }
+    }
+`
+
+let ast = acorn.parse(source, { ecmaVersion: 6 })
+
+let astq = new ASTQ()
+astq.query(ast, `
+    // VariableDeclarator [
+           /:id   Identifier [ @name  ]
+        && /:init Literal    [ @value ]
+    ]
+`).forEach(function (node) {
+    console.log(`${node.id.name}: ${node.init.value}`)
+})
+```
+$ babel-node sample.js
+bar: quux
+baz: 42
+```
+
 Implementation Notice
 ---------------------
 
