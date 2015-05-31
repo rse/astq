@@ -23,7 +23,7 @@
         "pegjs":                "~0.8.0",
         "pegjs-otf":            "~1.0.6",
         "pegjs-util":           "~1.0.5",
-        "asty":                 "~1.1.5",
+        "asty":                 "~1.2.0",
         "cache-lru":            "~1.0.6"
     },
     "devDependencies": {
@@ -34,7 +34,7 @@
         "grunt-browserify":     "~3.8.0",
         "grunt-jscs":           "~1.8.0",
         "grunt-mocha-test":     "~0.12.7",
-        "grunt-eslint":         "~13.0.0",
+        "grunt-eslint":         "~14.0.0",
         "babel-eslint":         "~3.1.9",
         "mocha":                "~2.2.5",
         "chai":                 "~2.3.0",
