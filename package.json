@@ -3,6 +3,7 @@
     "version":     "1.4.6",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
+    "license":     "MIT",
     "main":        "lib/astq.node.js",
     "repository": {
         "type": "git",
@@ -13,10 +14,6 @@
         "email": "rse@engelschall.com",
         "url":   "http://engelschall.com"
     },
-    "licenses": [{
-        "type": "MIT",
-        "url":  "http://opensource.org/licenses/MIT"
-    }],
     "homepage": "https://github.com/rse/astq",
     "bugs":     "https://github.com/rse/astq/issues",
     "dependencies": {
