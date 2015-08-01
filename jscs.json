@@ -33,7 +33,6 @@
     "requireSpaceBeforeKeywords": [ "while", "do", "try", "catch", "for", "if", "else" ],
     "requireSpaceBetweenArguments": true,
     "requireSpacesInAnonymousFunctionExpression": {
-        "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
     "requireSpacesInConditionalExpression": {
