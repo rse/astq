@@ -64,30 +64,69 @@ with an attribute `bar` of values `baz1` or `baz2` -- and childs of type
 
 In general, a query consists of one or more individual query paths,
 separated by comma. A path consists of a mandatory initial query step
-and optionally zero or more subsequent query steps. The difference
-between initial and subsequent query steps is
-that an initial query step does not need an axis while all subsequent
-query steps require it.
+and optionally zero or more subsequent query steps.
+
+The difference between initial and subsequent query steps is that an
+initial query step does not need an axis while all subsequent query
+steps require it. A query step consists of an (optional) AST node search
+axis, a (mandatory) AST node type match and an (optional) AST node
+filter expression:
 
     query            ::= path (, path)*
     path             ::= step-initial step-subsequent*
     step-initial     ::= axis? match filter?
     step-subsequent  ::= axis  match filter?
 
-A query step consists of an (optional) AST node search axis (direct/any
-child, direct/any left sibling, direct/any right sibling or direct/any
-parent), a (mandatory) AST node type match and an (optional) AST node
-filter expression:
+The search axis can be either for direct (`/`) or any (`//`) child
+nodes, for direct (`-/`) or any (`-//`) left sibling node(s), for direct
+(`+/`) or any (`+//`) right sibling node(s), or for direct (`../`) or
+any (`..//`) parent node(s).
 
-    axis             ::= ("/" | "//" | "-/" | "-//" | "+/" | "+//" | "../" | "..//") (":" id)?
-    match            ::= id | "*"
-    filter           ::= "[" expr "]"
+As an illustrating example: given an AST of the following particular
+nodes...
 
-A search axis usually walks along all parent/child references (at least
+          A
+          |
+      +-+-+-+-+
+     / /  |  \ \
+    B  C  D  E  F
+          |
+       +--+--+
+      /   |   \
+     G    H    I
+          |
+        +-+-+
+       /     \
+      J       K
+
+...the following queries and their result exist:
+
+    "D /    *" &rarr; G, H, I
+    "D //   *" &rarr; G, H, J, K, I
+    "D -/   *" &rarr; C
+    "D -//  *" &rarr; C, B
+    "D +/   *" &rarr; E
+    "D +//  *" &rarr; E, F
+    "H ../  *" &rarr; D
+    "H ..// *" &rarr; D, A
+
+A search axis usually walks along the references between nodes (at least
 in case of ASTy based AST). But in case the underlying AST and its
-adapter use typed parent/child references, one can optionally constrain
-the search axis to use only parent/child references matching the type
-`id`.
+adapter uses typed references, you can optionally constrain the search
+axis to take only references matching the type `id` into account.
+
+    axis               ::= axis-direction axis-type?
+    axis-direction     ::= axis-child
+                         | axis-sibling-left
+                         | axis-sibling-right
+                         | axis-parent
+    axis-child         ::= ("/" | "//")
+    axis-sibling-left  ::= ("-/" | "-//")
+    axis-sibling-right ::= ("+/" | "+//")
+    axis-parent        ::= ("../" | "..//")
+    axis-type          ::= ":" id
+    match              ::= id | "*"
+    filter             ::= "[" expr "]"
 
 The real power comes through the optional filter expression: it can be
 applied to each query step and it recursively(!) can contain sub-queries
