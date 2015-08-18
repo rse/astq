@@ -60,12 +60,16 @@ describe("ASTq Library", function () {
         var node5 = asty.create("node5")
         var node6 = asty.create("node6").set("foo", "bar")
         var node7 = asty.create("node7").set("quux", "baz")
+        var node8 = asty.create("node8")
+        var node9 = asty.create("node9")
         node1.add(node2)
         node1.add(node3)
         node1.add(node4)
         node3.add(node5)
         node3.add(node6)
         node3.add(node7)
+        node6.add(node8)
+        node6.add(node9)
 
         expect(astq.query(node1, "node1")).to.have.members([ node1 ])
         expect(astq.query(node1, "badNodeName")).to.be.empty
@@ -74,10 +78,15 @@ describe("ASTq Library", function () {
         expect(astq.query(node1, "// * [ @foo == 'bar' ]")).to.have.members([ node6 ])
         expect(astq.query(node1, "// * [ @foo == 'bar' ] +// * [ @quux == 'baz' ]")).to.have.members([ node7 ])
         expect(astq.query(node1, "// * [ @foo == 'bar' && +// * [ @quux == 'baz' ] ]")).to.have.members([ node6 ])
-        expect(astq.query(node1, "// * [ pos() <= 1 ]")).to.have.members([ node2, node5 ])
+        expect(astq.query(node1, "// * [ pos() <= 1 ]")).to.have.members([ node2, node5, node8 ])
         expect(astq.query(node1, "// * [ count(/*) == 3 ]")).to.have.members([ node3 ])
         expect(astq.query(node1, "// * [ depth() == 3 ]", {}, true)).to.have.members([ node5, node6, node7 ])
         expect(astq.query(node1, "/ node2 ../ node1 / node2")).to.have.members([ node2 ])
+
+        expect(astq.query(node1, "*, // *"))
+            .to.have.members([ node1, node2, node3, node5, node6, node8, node9, node7, node4 ])
+        expect(astq.query(node6, "<// *")).to.be.deep.equal([ node5, node3, node2, node1 ])
+        expect(astq.query(node6, ">// *")).to.be.deep.equal([ node8, node9, node7, node4 ])
     })
 })
 

@@ -79,8 +79,9 @@ filter expression:
 
 The search axis can be either for direct (`/`) or any (`//`) child
 nodes, for direct (`-/`) or any (`-//`) left sibling node(s), for direct
-(`+/`) or any (`+//`) right sibling node(s), or for direct (`../`) or
-any (`..//`) parent node(s).
+(`+/`) or any (`+//`) right sibling node(s), for direct (`../`) or any
+(`..//`) parent node(s), for any preceding nodes (`<//`), or for any
+following nodes (`>//`).
 
 As an illustrating example: given an AST of the following particular
 nodes...
@@ -111,6 +112,8 @@ Start Node | Query    | Result Node(s)
 `D`        | `+//  *` | `E, F`
 `H`        | `../  *` | `D`
 `H`        | `..// *` | `D, A`
+`H`        | `<//  *` | `G, D, C B A`
+`H`        | `>//  *` | `J, K, I, E, F`
 
 A search axis usually walks along the references between nodes (at least
 in case of ASTy based AST). But in case the underlying AST and its
@@ -122,10 +125,14 @@ axis to take only references matching the type `id` into account.
                          | axis-sibling-left
                          | axis-sibling-right
                          | axis-parent
+                         | axis-preceding
+                         | axis-following
     axis-child         ::= ("/" | "//")
     axis-sibling-left  ::= ("-/" | "-//")
     axis-sibling-right ::= ("+/" | "+//")
     axis-parent        ::= ("../" | "..//")
+    axis-preceding     ::= "<//"
+    axis-following     ::= ">//"
     axis-type          ::= ":" id
     match              ::= id | "*"
     filter             ::= "[" expr "]"

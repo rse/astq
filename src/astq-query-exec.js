@@ -119,7 +119,8 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                             break
                         leftSibling = pchilds[i]
                     }
-                    matchAndTake(leftSibling)
+                    if (leftSibling !== null)
+                        matchAndTake(leftSibling)
                 }
             }
             else if (op === "-//") {
@@ -127,11 +128,12 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                 let parent = this.adapter.getParentNode(T, "*")
                 if (parent !== null) {
                     let pchilds = this.adapter.getChildNodes(parent, t)
-                    for (let i = 0; i < pchilds.length; i++) {
+                    let i = 0
+                    for (; i < pchilds.length; i++)
                         if (pchilds[i] === T)
                             break
+                    for (i--; i >= 0; i--)
                         matchAndTake(pchilds[i])
-                    }
                 }
             }
             else if (op === "+/") {
@@ -143,10 +145,8 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                     for (i = 0; i < pchilds.length; i++)
                         if (pchilds[i] === T)
                             break
-                    if (i < pchilds.length) {
-                        i++
-                        matchAndTake(pchilds[i])
-                    }
+                    if (i < pchilds.length)
+                        matchAndTake(pchilds[++i])
                 }
             }
             else if (op === "+//") {
@@ -158,11 +158,9 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                     for (i = 0; i < pchilds.length; i++)
                         if (pchilds[i] === T)
                             break
-                    if (i < pchilds.length) {
-                        i++
-                        while (i < pchilds.length)
-                            matchAndTake(pchilds[i++])
-                    }
+                    if (i < pchilds.length)
+                        for (i++; i < pchilds.length; i++)
+                            matchAndTake(pchilds[i])
                 }
             }
             else if (op === "../") {
@@ -181,6 +179,47 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                     matchAndTake(parent)
                     node = parent
                 }
+            }
+            else if (op === "<//") {
+                /*  transitive preceding nodes  */
+                let ctx = { sentinel: T, take: true }
+                for (;;) {
+                    let parent = this.adapter.getParentNode(T, "*")
+                    if (parent === null)
+                        break
+                    T = parent
+                }
+                let walk = (T) => {
+                    if (T === ctx.sentinel)
+                        ctx.take = false
+                    if (ctx.take)
+                        matchAndTake(T)
+                    if (ctx.take)
+                        this.adapter.getChildNodes(T, t).forEach((T) => walk(T)) /* RECURSION */
+                }
+                if (T !== ctx.sentinel) {
+                    matchAndTake(T)
+                    this.adapter.getChildNodes(T, t).forEach((T) => walk(T))
+                }
+                nodes = nodes.reverse()
+            }
+            else if (op === ">//") {
+                /*  transitive following nodes  */
+                let ctx = { sentinel: T, take: false }
+                for (;;) {
+                    let parent = this.adapter.getParentNode(T, "*")
+                    if (parent === null)
+                        break
+                    T = parent
+                }
+                let walk = (T) => {
+                    if (ctx.take)
+                        matchAndTake(T)
+                    if (T === ctx.sentinel)
+                        ctx.take = true
+                    this.adapter.getChildNodes(T, t).forEach((T) => walk(T)) /* RECURSION */
+                }
+                this.adapter.getChildNodes(T, t).forEach((T) => walk(T))
             }
         }
         else
