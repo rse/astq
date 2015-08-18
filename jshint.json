@@ -22,7 +22,7 @@
     "trailing":      true,
     "maxparams":     9,
     "maxdepth":      7,
-    "maxstatements": 150,
+    "maxstatements": 200,
     "maxlen":        200,
     "loopfunc":      true,
     "-W014":         false,
