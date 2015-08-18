@@ -101,14 +101,16 @@ nodes...
 
 ...the following queries and their result exist:
 
-    "D /    *" &rarr; G, H, I
-    "D //   *" &rarr; G, H, J, K, I
-    "D -/   *" &rarr; C
-    "D -//  *" &rarr; C, B
-    "D +/   *" &rarr; E
-    "D +//  *" &rarr; E, F
-    "H ../  *" &rarr; D
-    "H ..// *" &rarr; D, A
+Start Node | Query    | Result Node(s)
+-----------|----------|----------------
+`D`        | `/    *` | `G, H, I`
+`D`        | `//   *` | `G, H, J, K, I`
+`D`        | `-/   *` | `C`
+`D`        | `-//  *` | `C, B`
+`D`        | `+/   *` | `E`
+`D`        | `+//  *` | `E, F`
+`H`        | `../  *` | `D`
+`H`        | `..// *` | `D, A`
 
 A search axis usually walks along the references between nodes (at least
 in case of ASTy based AST). But in case the underlying AST and its
