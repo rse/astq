@@ -74,13 +74,20 @@ query steps require it.
     step-initial     ::= axis? match filter?
     step-subsequent  ::= axis  match filter?
 
-A query step consists of an (optional) AST node search axis (direct/any child,
-direct/any left/right sibling or direct/any parent), a (mandatory) AST node type
-match and an (optional) AST node filter expression:
+A query step consists of an (optional) AST node search axis (direct/any
+child, direct/any left sibling, direct/any right sibling or direct/any
+parent), a (mandatory) AST node type match and an (optional) AST node
+filter expression:
 
-    axis             ::= ("//" | "/" | "+//" | "+/" | "-//" | "-/" | "../" | "..//") (":" id)?
+    axis             ::= ("/" | "//" | "-/" | "-//" | "+/" | "+//" | "../" | "..//") (":" id)?
     match            ::= id | "*"
     filter           ::= "[" expr "]"
+
+A search axis usually walks along all parent/child references (at least
+in case of ASTy based AST). But in case the underlying AST and its
+adapter use typed parent/child references, one can optionally constrain
+the search axis to use only parent/child references matching the type
+`id`.
 
 The real power comes through the optional filter expression: it can be
 applied to each query step and it recursively(!) can contain sub-queries
