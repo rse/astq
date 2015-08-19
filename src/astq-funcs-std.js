@@ -22,6 +22,27 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*  internal helper function: find position between siblings  */
+let pos = (A, T) => {
+    let parent = A.getParentNode(T, "*")
+    if (parent === null)
+        return 1
+    let pchilds = A.getChildNodes(parent, "*")
+    for (let i = 0; i < pchilds.length; i++)
+        if (pchilds[i] === T)
+            return (i + 1)
+    throw new Error("cannot find myself")
+}
+
+/*  internal helper function: find parent nodes  */
+let parents = (A, T) => {
+    let parents = []
+    while ((T = A.getParentNode(T, "*")) !== null)
+        parents.push(T)
+    return parents
+}
+
+/*  the exported standard functions  */
 let stdfuncs = {
     /*  type name of node  */
     "type": (A, T) => {
@@ -39,14 +60,7 @@ let stdfuncs = {
 
     /*  return position of node between siblings  */
     "pos": (A, T) => {
-        let parent = A.getParentNode(T, "*")
-        if (parent === null)
-            return 1
-        let pchilds = A.getChildNodes(parent, "*")
-        for (let i = 0; i < pchilds.length; i++)
-            if (pchilds[i] === T)
-                return (i + 1)
-        throw new Error("cannot find myself")
+        return pos(A, T)
     },
 
     /*  check position of node between siblings  */
@@ -88,6 +102,52 @@ let stdfuncs = {
             return val.length
         else
             return String(val).length
+    },
+
+    /*  check whether node is below another  */
+    "below": (A, T, other) => {
+        if (!A.taste(other))
+            throw new Error("invalid argument to function \"below\" (node expected)")
+        let node = T
+        while ((node = A.getParentNode(node, "*")) !== null)
+            if (node === other)
+                return true
+        return false
+    },
+
+    /*  check whether node follows another  */
+    "follows": (A, T, other) => {
+        if (!A.taste(other))
+            throw new Error("invalid argument to function \"follows\" (node expected)")
+        if (T === other)
+            return false
+        let pathOfT     = [ T     ].concat(parents(A, T    )).reverse()
+        let pathOfOther = [ other ].concat(parents(A, other)).reverse()
+        let len = Math.min(pathOfT.length, pathOfOther.length)
+        let i
+        for (i = 0; i < len; i++)
+            if (pathOfT[i] !== pathOfOther[i])
+                break
+        if (i === 0)
+            throw new Error("internal error: root nodes have to be same same")
+        else if (i === len) {
+            if (pathOfOther.length < pathOfT.length)
+                return true
+            else
+                return false
+        }
+        else
+            return pos(A, pathOfT[i]) > pos(A, pathOfOther[i])
+    },
+
+    /*  check whether node is in a list of nodes  */
+    "in": (A, T, val) => {
+        if (!(typeof val === "object" && val instanceof Array))
+            throw new Error("invalid argument to function \"in\" (array expected)")
+        for (let i = 0; i < val.length; i++)
+            if (val[i] === T)
+                return true
+        return false
     },
 
     /*  retrieve a sub-string  */
