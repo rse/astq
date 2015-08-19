@@ -183,7 +183,7 @@ parameter, literal value, parenthesis expression or path of a sub-query.
                        | "~" expr
     relational       ::= expr ("==" | "!=" | "<=" | ">=" | "<" | ">" | "=~" | "!~") expr
     arithmethical    ::= expr ("+" | "-" | "*" | "/" | "%" | "**") expr
-    function-call    ::= id "(" (param ("," param)*)? ")"
+    function-call    ::= id "(" (expr ("," expr)*)? ")"
     attribute-ref    ::= "@" id
     query-parameter  ::= "{" id "}"
     id               ::= /[a-zA-Z_][a-zA-Z0-9_-]*/
@@ -194,6 +194,67 @@ parameter, literal value, parenthesis expression or path of a sub-query.
     value            ::= "true" | "false" | "null" | "NaN" | "undefined"
     parenthesis      ::= "(" expr ")"
     sub-query        ::= path           // <-- ESSENTIAL RECURSION !!
+
+Notice that the function call parameters can be full expressions theirself,
+including (through the recursion over `sub-query` above) full query paths.
+The available pre-defined standard functions are:
+
+- `type(): String`:<br/>
+  Return type of current node.
+  Example: `type() === "foo"`
+
+- `depth(): Number`:<br/>
+  Return depth in AST of current node (counting from 1 for the root node).
+  Example: `depth() &lt;= 3`
+
+- `pos(): Number`:<br/>
+  Return position of current node among sibling (counting from 1 first the first sibling).
+  Example: `pos() === 2`
+
+- `nth(pos: Number): Boolean`:<br/>
+  Check whether position of current node among sibling is `pos` (counting from 1 fir
+  the first sibling). Negative values for `pos` count from the last sibling backward,
+  i.e., `-1` is the last sibling.
+  Example: `nth(3)`
+
+- `first(): Boolean`:<br/>
+  Shorthand for `nth(1)`.
+
+- `last(): Boolean`:<br/>
+  Shorthand for `nth(-1)`.
+
+- `count(array: Object[]): Number`:<br/>
+  Return the number of elements in `array`.
+  The `array` usually is either an externally passed-in parameter or a sub-query.
+  Example: `count({nodes}) <= count(// *)`
+
+- `below(node: Node): Boolean`:<br/>
+  Checks whether current node is somewhere below `node`, i.e.,
+  whether current node is a child or descendant of `node`.
+  Example: `below({node})`.
+
+- `follows(node: Node): Boolean`:<br/>
+  Checks whether current node is following `node`, i.e.,
+  whether current node comes after `node` in a standard
+  depth-first tree visit (where parents are visited before childs).
+  Example: `follows({node})`.
+
+- `in(nodes: Node[]): Number`:<br/>
+  Checks whether current node is in `nodes`.
+  The `nodes` usually is either an externally passed-in parameter or a sub-query.
+  Example: `in({nodes})`
+
+- `substr(str: String, pos: Number, len: Number): String`:<br/>
+  Returns the sub-string of `str`, starting at `pos` with length `len`.
+  Example: `substr(@foo, 0, 1) == "A"`
+
+- `lc(str: String): String`:<br/>
+  Returns the lower-case variant of `str`.
+  Example: `lc(@foo) == "a"`
+
+- `uc(str: String): String`:<br/>
+  Returns the upper-case variant of `str`.
+  Example: `uc(@foo) == "A"`
 
 Application Programming Interface (API)
 ---------------------------------------
