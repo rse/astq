@@ -24,8 +24,8 @@
 
 {
     /*  standard PEGUtil integration code  */
-    var unroll = options.util.makeUnroll(line, column, offset, SyntaxError)
-    var ast    = options.util.makeAST   (line, column, offset, options)
+    var unroll = options.util.makeUnroll(location, SyntaxError)
+    var ast    = options.util.makeAST   (location, options)
 }
 
 /*
