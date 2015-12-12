@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        "babelify",
+                        [ "babelify", { presets: [ "es2015" ] } ],
                         "pegjs-otf/transform"
                     ],
                     plugin: [
@@ -96,7 +96,7 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        "babelify",
+                        [ "babelify", { presets: [ "es2015" ] } ],
                         "pegjs-otf/transform"
                     ],
                     plugin: [
