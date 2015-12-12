@@ -36,7 +36,7 @@ import ASTQQuery         from "./astq-query.js"
 import ASTQVersion       from "./astq-version.js"
 
 /*  define the API class  */
-export default class ASTQ {
+class ASTQ {
     /*  create a new ASTq instance  */
     constructor () {
         /*  create adapter registry and pre-register standard adapters  */
@@ -130,4 +130,8 @@ export default class ASTQ {
         return this.execute(node, this.compile(selector, trace), params, trace)
     }
 }
+
+/*  export the traditional way for interoperability reasons
+    (as Babel would export an object with a 'default' field)  */
+module.exports = ASTQ
 
