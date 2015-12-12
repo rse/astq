@@ -19,7 +19,7 @@
     "dependencies": {
         "pegjs":                "~0.9.0",
         "pegjs-otf":            "~1.1.1",
-        "pegjs-util":           "~1.2.0",
+        "pegjs-util":           "~1.3.0",
         "asty":                 "~1.4.0",
         "cache-lru":            "~1.0.8"
     },
