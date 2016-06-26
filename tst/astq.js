@@ -51,6 +51,18 @@ describe("ASTq Library", function () {
     })
 
     astq.func("add", function (a, b) { return a + b })
+
+    /*
+     *  node1
+     *      node2
+     *      node3
+     *          node5
+     *          node6
+     *              node8
+     *              node9
+     *          node7
+     *      node4
+     */
     var ASTY = require("asty")
     var asty = new ASTY()
     var node1 = asty.create("node1")
@@ -120,6 +132,14 @@ describe("ASTq Library", function () {
             .to.have.members([ node1, node2, node3, node5, node6, node8, node9, node7, node4 ])
         expect(astq.query(node6, "<// *")).to.be.deep.equal([ node5, node3, node2, node1 ])
         expect(astq.query(node6, ">// *")).to.be.deep.equal([ node8, node9, node7, node4 ])
+    })
+
+    it("result marking", function () {
+        expect(astq.query(node1, "* ! / * / * /*")).to.be.deep.equal([ node1 ])
+        expect(astq.query(node1, "* / * ! / * /*")).to.be.deep.equal([ node2, node3, node4 ])
+        expect(astq.query(node1, "* / * / * ! /*")).to.be.deep.equal([ node5, node6, node7 ])
+        expect(astq.query(node1, "* / * / * / * !")).to.be.deep.equal([ node8, node9 ])
+        expect(astq.query(node1, "* / * ! [ count(/ * ! / *) == 3 ]")).to.be.deep.equal([ node3 ])
     })
 })
 
