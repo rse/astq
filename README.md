@@ -69,13 +69,13 @@ and optionally zero or more subsequent query steps.
 The difference between initial and subsequent query steps is that an
 initial query step does not need an axis while all subsequent query
 steps require it. A query step consists of an (optional) AST node search
-axis, a (mandatory) AST node type match and an (optional) AST node
-filter expression:
+axis, a (mandatory) AST node type match, an (optional) result marker "!"
+and an (optional) AST node filter expression:
 
     query            ::= path (, path)*
     path             ::= step-initial step-subsequent*
-    step-initial     ::= axis? match filter?
-    step-subsequent  ::= axis  match filter?
+    step-initial     ::= axis? match result? filter?
+    step-subsequent  ::= axis  match result? filter?
 
 The search axis can be either for direct (`/`) or any (`//`) child
 nodes, for direct (`-/`) or any (`-//`) left sibling node(s), for direct
@@ -134,6 +134,7 @@ axis to take only references matching the type `id` into account.
     axis-preceding     ::= "<//"
     axis-following     ::= ">//"
     axis-type          ::= ":" id
+    result             ::= "!"
     match              ::= id | "*"
     filter             ::= "[" expr "]"
 

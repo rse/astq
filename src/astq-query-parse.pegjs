@@ -48,13 +48,13 @@ queryPath
         }
 
 queryStep
-    =   a:queryAxis? _ m:queryMatch _ f:queryFilter? {
-            return ast("Step").add(a, m, f)
+    =   a:queryAxis? _ m:queryMatch _ r:"!"? _ f:queryFilter? {
+            return ast("Step").add(a, m, f).set(r !== null ? { isResult: true } : {})
         }
 
 queryStepSubsequent
-    =   a:queryAxis _ m:queryMatch _ f:queryFilter? {
-            return ast("Step").add(a, m, f)
+    =   a:queryAxis _ m:queryMatch _ r:"!"? _ f:queryFilter? {
+            return ast("Step").add(a, m, f).set(r !== null ? { isResult: true } : {})
         }
 
 queryAxis "axis"
