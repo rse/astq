@@ -208,11 +208,11 @@ The available pre-defined standard functions are:
   Example: `depth() <= 3`
 
 - `pos(): Number`:<br/>
-  Return position of current node among sibling (counting from 1 first the first sibling).
+  Return position of current node among sibling (counting from 1 for the first sibling).
   Example: `pos() == 2`
 
 - `nth(pos: Number): Boolean`:<br/>
-  Check whether position of current node among sibling is `pos` (counting from 1 fir
+  Check whether position of current node among sibling is `pos` (counting from 1 for
   the first sibling). Negative values for `pos` count from the last sibling backward,
   i.e., `-1` is the last sibling.
   Example: `nth(3)`
