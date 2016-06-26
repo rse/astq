@@ -233,8 +233,7 @@ stringEscapedCharDQ "escaped double-quoted-string character"
         }
 
 stringEscapedCharSQ "escaped single-quoted-string character"
-    =   "\\\\" { return "\\"   }
-    /   "\\'"  { return "'"    }
+    =   "\\'"  { return "'"    }
 
 regexp "regular expression literal"
     =   "`" re:$(("\\`" / [^`])*) "`" {
