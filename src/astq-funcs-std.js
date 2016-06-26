@@ -155,6 +155,16 @@ const stdfuncs = {
         return String(str).substr(pos, len)
     },
 
+    /*  retrieve index of a sub-string  */
+    "indexof": (A, T, str, sub, from) => {
+        return String(str).indexOf(sub, from)
+    },
+
+    /*  remove whitespaces at begin and end of string  */
+    "trim": (A, T, str) => {
+        return String(str).trim()
+    },
+
     /*  convert string to lower-case  */
     "lc": (A, T, str) => {
         return String(str).toLowerCase()

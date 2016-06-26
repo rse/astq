@@ -252,13 +252,21 @@ The available pre-defined standard functions are:
   i.e., `-1` is the last character.
   Example: `substr(@foo, 0, 1) == "A"`
 
+- `indexof(str: String, sub: String, pos: Number): Number`:<br/>
+  Returns the index position of sub-string `sub` in string `str`, starting at `pos`.
+  Example: `indexof(@foo, "bar", 0) >= 0`
+
+- `trim(str: String): String`:<br/>
+  Returns the string `str` with whitespaces removed from begin and end.
+  Example: `trim(@foo) == "bar"`
+
 - `lc(str: String): String`:<br/>
   Returns the lower-case variant of `str`.
-  Example: `lc(@foo) == "a"`
+  Example: `lc(@foo) == "bar"`
 
 - `uc(str: String): String`:<br/>
   Returns the upper-case variant of `str`.
-  Example: `uc(@foo) == "A"`
+  Example: `uc(@foo) == "BAR"`
 
 Application Programming Interface (API)
 ---------------------------------------
