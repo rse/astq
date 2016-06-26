@@ -218,7 +218,6 @@ string "quoted string literal"
 stringEscapedChar "escaped string character"
     =   "\\\\" { return "\\"   }
     /   "\\\"" { return "\""   }
-    /   "'"    { return "'"    }
     /   "\\b"  { return "\b"   }
     /   "\\v"  { return "\x0B" }
     /   "\\f"  { return "\f"   }
