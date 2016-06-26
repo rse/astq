@@ -23,7 +23,7 @@
 */
 
 /*  internal helper function: find position between siblings  */
-let pos = (A, T) => {
+const pos = (A, T) => {
     let parent = A.getParentNode(T, "*")
     if (parent === null)
         return 1
@@ -35,7 +35,7 @@ let pos = (A, T) => {
 }
 
 /*  internal helper function: find parent nodes  */
-let parents = (A, T) => {
+const parents = (A, T) => {
     let parents = []
     while ((T = A.getParentNode(T, "*")) !== null)
         parents.push(T)
@@ -43,7 +43,7 @@ let parents = (A, T) => {
 }
 
 /*  the exported standard functions  */
-let stdfuncs = {
+const stdfuncs = {
     /*  type name of node  */
     "type": (A, T) => {
         return A.getNodeType(T)
