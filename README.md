@@ -201,15 +201,15 @@ The available pre-defined standard functions are:
 
 - `type(): String`:<br/>
   Return type of current node.
-  Example: `type() === "foo"`
+  Example: `type() == "foo"`
 
 - `depth(): Number`:<br/>
   Return depth in AST of current node (counting from 1 for the root node).
-  Example: `depth() &lt;= 3`
+  Example: `depth() <= 3`
 
 - `pos(): Number`:<br/>
   Return position of current node among sibling (counting from 1 first the first sibling).
-  Example: `pos() === 2`
+  Example: `pos() == 2`
 
 - `nth(pos: Number): Boolean`:<br/>
   Check whether position of current node among sibling is `pos` (counting from 1 fir
