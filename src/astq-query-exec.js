@@ -37,9 +37,12 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
     execQuery (Q, T) {
         this.traceBegin(Q, T)
         let output = []
+
+        /*  iterate over all query paths  */
         Q.childs().forEach((Q) => {
             output = output.concat(this.execPath(Q, T))
         })
+
         this.traceEnd(Q, T, output)
         return output
     }
@@ -47,6 +50,8 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
     execPath (Q, T) {
         this.traceBegin(Q, T)
         let nodes = [ T ]
+
+        /*  iterate over all steps of a query path  */
         Q.childs().forEach((Q) => {
             let output = []
             nodes.forEach((T) => {
@@ -54,6 +59,7 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
             })
             nodes = output
         })
+
         this.traceEnd(Q, T, nodes)
         return nodes
     }
