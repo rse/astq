@@ -230,22 +230,26 @@ The available pre-defined standard functions are:
 
 - `below(node: Node): Boolean`:<br/>
   Checks whether current node is somewhere below `node`, i.e.,
-  whether current node is a child or descendant of `node`.
+  whether current node is a child or descendant of `node`. Usually,
+  this makes sense only if `node` is an externally passed-in parameter.
   Example: `below({node})`.
 
 - `follows(node: Node): Boolean`:<br/>
   Checks whether current node is following `node`, i.e.,
   whether current node comes after `node` in a standard
   depth-first tree visit (where parents are visited before childs).
+  Usually, this makes sense only if `node` is an externally passed-in parameter.
   Example: `follows({node})`.
 
 - `in(nodes: Node[]): Number`:<br/>
   Checks whether current node is in `nodes`.
-  The `nodes` usually is either an externally passed-in parameter or a sub-query.
-  Example: `in({nodes})`
+  Usually, `nodes` is either an externally passed-in parameter or a sub-query.
+  Example: `in({nodes})`.
 
 - `substr(str: String, pos: Number, len: Number): String`:<br/>
   Returns the sub-string of `str`, starting at `pos` with length `len`.
+  Negative values for `pos` count from the end of the string,
+  i.e., `-1` is the last character.
   Example: `substr(@foo, 0, 1) == "A"`
 
 - `lc(str: String): String`:<br/>
