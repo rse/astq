@@ -41,9 +41,9 @@ class ASTQ {
     constructor () {
         /*  create adapter registry and pre-register standard adapters  */
         this._adapter = new ASTQAdapter()
-        this._adapter.register(ASTQAdapterMOZAST)
-        this._adapter.register(ASTQAdapterXMLDOM)
-        this._adapter.register(ASTQAdapterASTY)
+            .register(ASTQAdapterMOZAST)
+            .register(ASTQAdapterXMLDOM)
+            .register(ASTQAdapterASTY)
 
         /*  create function registry and pre-register standard functions  */
         this._funcs = new ASTQFuncs()
