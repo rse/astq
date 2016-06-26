@@ -155,10 +155,11 @@ An illustrating combined example is:
                          +---------------+                       filter
                            +----------+                          expr
 
-The result of a query are always all nodes which match against the last
-query step of any path. The queries in filter expressions just lead to
-a boolean decision for the filter, but never cause any resulting nodes
-theirself.
+The result of a query is always all nodes which match against the last
+query step of any path (in case of no result marker on any step in the
+path) or all nodes of matched steps with a result marker. The queries in
+filter expressions just lead to a boolean decision for the filter, but
+never cause any resulting nodes theirself.
 
 An expression can be either a ternary/binary conditional expression,
 logical expression, bitwise expression, relational expression,
