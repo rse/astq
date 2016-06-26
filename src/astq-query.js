@@ -27,12 +27,12 @@
 /* eslint no-console: 0 */
 
 /*  load external dependencies  */
-let ASTY     = require("asty")
-let PEG      = require("pegjs-otf")
-let PEGUtil  = require("pegjs-util")
+const ASTY     = require("asty")
+const PEG      = require("pegjs-otf")
+const PEGUtil  = require("pegjs-util")
 
 /*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
-let ASTQQueryParse = PEG.buildParserFromFile(
+const ASTQQueryParse = PEG.buildParserFromFile(
     __dirname + "/astq-query-parse.pegjs",
     { optimize: "speed", cache: true }
 )
@@ -53,7 +53,7 @@ export default class ASTQQuery {
     compile (selector, trace) {
         if (trace)
             console.log("ASTQ: compile: +---------------------------------------" +
-                        "----------------------------------------------------------------\n" +
+                "----------------------------------------------------------------\n" +
                 "ASTQ: compile: | " + selector)
         let result = PEGUtil.parse(ASTQQueryParse, selector, {
             startRule: "query",
@@ -67,7 +67,7 @@ export default class ASTQQuery {
         this.ast = result.ast
         if (trace)
             console.log("ASTQ: compile: +---------------------------------------" +
-                        "----------------------------------------------------------------\n" +
+                "----------------------------------------------------------------\n" +
                 this.dump().replace(/\n$/, "").replace(/^/mg, "ASTQ: compile: | "))
         return this
     }
@@ -81,7 +81,7 @@ export default class ASTQQuery {
     execute (node, adapter, params, funcs, trace) {
         if (trace)
             console.log("ASTQ: execute: +---------------------------------------" +
-                        "-----------------------+----------------------------------------")
+                "-----------------------+----------------------------------------")
         let qe = new ASTQQueryExec(adapter, params, funcs, trace)
         return qe.execQuery(this.ast, node)
     }
