@@ -156,7 +156,7 @@ const stdfuncs = {
     },
 
     /*  retrieve index of a sub-string  */
-    "indexof": (A, T, str, sub, from) => {
+    "index": (A, T, str, sub, from) => {
         return String(str).indexOf(sub, from)
     },
 
