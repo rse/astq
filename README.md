@@ -252,7 +252,7 @@ The available pre-defined standard functions are:
   i.e., `-1` is the last character.
   Example: `substr(@foo, 0, 1) == "A"`
 
-- `indexof(str: String, sub: String, pos: Number): Number`:<br/>
+- `index(str: String, sub: String, pos: Number): Number`:<br/>
   Returns the index position of sub-string `sub` in string `str`, starting at `pos`.
   Example: `indexof(@foo, "bar", 0) >= 0`
 
