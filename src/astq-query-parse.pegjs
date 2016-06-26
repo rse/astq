@@ -208,14 +208,14 @@ id "identifier"
         }
 
 string "quoted string literal"
-    =   "\"" s:((stringEscapedChar / [^"])*) "\"" {
+    =   "\"" s:((stringEscapedCharDQ / [^"])*) "\"" {
             return ast("LiteralString").set({ value: s.join("") })
         }
-    /   "'" t:$(("\\'" / [^'])*) "'" {
-            return ast("LiteralString").set({ value: t.replace(/\\'/g, "'") })
+    /   "'" s:((stringEscapedCharSQ / [^'])*) "'" {
+            return ast("LiteralString").set({ value: s.join("") })
         }
 
-stringEscapedChar "escaped string character"
+stringEscapedCharDQ "escaped double-quoted-string character"
     =   "\\\\" { return "\\"   }
     /   "\\\"" { return "\""   }
     /   "\\b"  { return "\b"   }
@@ -231,6 +231,10 @@ stringEscapedChar "escaped string character"
     /   "\\u" n:$([0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]) {
             return String.fromCharCode(parseInt(n, 16))
         }
+
+stringEscapedCharSQ "escaped single-quoted-string character"
+    =   "\\\\" { return "\\"   }
+    /   "\\'"  { return "'"    }
 
 regexp "regular expression literal"
     =   "`" re:$(("\\`" / [^`])*) "`" {
