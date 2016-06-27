@@ -49,8 +49,7 @@ module.exports = function (grunt) {
         jscs: {
             "astq": {
                 options: {
-                    config: "jscs.json",
-                    esnext: true
+                    config: "jscs.json"
                 },
                 files: {
                     src: [ "src/**/*.js", "tst/**/*.js" ]
