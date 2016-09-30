@@ -32,7 +32,7 @@ const PEG      = require("pegjs-otf")
 const PEGUtil  = require("pegjs-util")
 
 /*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
-const ASTQQueryParse = PEG.buildParserFromFile(
+const ASTQQueryParse = PEG.generateFromFile(
     __dirname + "/astq-query-parse.pegjs",
     { optimize: "speed", cache: true }
 )

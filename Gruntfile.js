@@ -42,7 +42,7 @@ module.exports = function (grunt) {
         },
         eslint: {
             options: {
-                config: "eslint.json"
+                configFile: "eslint.json"
             },
             "astq": [ "src/**/*.js", "tst/**/*.js" ]
         },
