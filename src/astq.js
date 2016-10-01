@@ -67,7 +67,7 @@ class ASTQ {
             throw new Error("ASTQ#adapter: invalid number of arguments")
         this._adapter.unregister()
         if (typeof adapter === "string") {
-            if      (adapter === "mozast") adapter = ASTQAdapterMOZAST
+            if (adapter === "mozast")      adapter = ASTQAdapterMOZAST
             else if (adapter === "xmldom") adapter = ASTQAdapterXMLDOM
             else if (adapter === "parse5") adapter = ASTQAdapterPARSE5
             else if (adapter === "asty")   adapter = ASTQAdapterASTY
