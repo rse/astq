@@ -42,10 +42,10 @@ class ASTQ {
     constructor () {
         /*  create adapter registry and pre-register standard adapters  */
         this._adapter = new ASTQAdapter()
-            .register(ASTQAdapterMOZAST)
-            .register(ASTQAdapterXMLDOM)
-            .register(ASTQAdapterPARSE5)
-            .register(ASTQAdapterASTY)
+            .register(ASTQAdapterMOZAST, false)
+            .register(ASTQAdapterXMLDOM, false)
+            .register(ASTQAdapterPARSE5, false)
+            .register(ASTQAdapterASTY,   false)
 
         /*  create function registry and pre-register standard functions  */
         this._funcs = new ASTQFuncs()
@@ -61,20 +61,26 @@ class ASTQ {
         return ASTQVersion
     }
 
-    /*  switch to a custom adapter  */
-    adapter (adapter) {
-        if (arguments.length !== 1)
+    /*  switch to a single custom adapter  */
+    adapter (adapter, force = false) {
+        if (arguments.length < 1 || arguments.length > 2)
             throw new Error("ASTQ#adapter: invalid number of arguments")
         this._adapter.unregister()
-        if (typeof adapter === "string") {
-            if (adapter === "mozast")      adapter = ASTQAdapterMOZAST
-            else if (adapter === "xmldom") adapter = ASTQAdapterXMLDOM
-            else if (adapter === "parse5") adapter = ASTQAdapterPARSE5
-            else if (adapter === "asty")   adapter = ASTQAdapterASTY
-            else
-                throw new Error("ASTQ#adapter: unknown built-in adapter")
-        }
-        this._adapter.register(adapter)
+        if (!(typeof adapter === "object" && adapter instanceof Array))
+            adapter = [ adapter ]
+        if (adapter.length > 1 && force)
+            throw new Error("ASTQ#adapter: you can force just a single adapter to not taste the AST node")
+        adapter.forEach((adapter) => {
+            if (typeof adapter === "string") {
+                if (adapter === "mozast")      adapter = ASTQAdapterMOZAST
+                else if (adapter === "xmldom") adapter = ASTQAdapterXMLDOM
+                else if (adapter === "parse5") adapter = ASTQAdapterPARSE5
+                else if (adapter === "asty")   adapter = ASTQAdapterASTY
+                else
+                    throw new Error("ASTQ#adapter: unknown built-in adapter")
+            }
+            this._adapter.register(adapter, force)
+        })
         return this
     }
 

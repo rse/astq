@@ -27,8 +27,8 @@ export default class ASTQAdapter {
         this._adapters = []
         return this
     }
-    register (adapter) {
-        this._adapters.unshift(adapter)
+    register (adapter, force = false) {
+        this._adapters.unshift({ adapter: adapter, force: force })
         return this
     }
     unregister (adapter) {
@@ -37,7 +37,7 @@ export default class ASTQAdapter {
         else {
             let adapters = []
             for (let i = 0; i < this._adapters.length; i++)
-                if (this._adapters[i] !== adapter)
+                if (this._adapters[i].adapter !== adapter)
                     adapters.push(this._adapters[i])
             this._adapters = adapters
         }
@@ -45,8 +45,8 @@ export default class ASTQAdapter {
     }
     select (node) {
         for (let i = 0; i < this._adapters.length; i++)
-            if (this._adapters[i].taste(node))
-                return this._adapters[i]
+            if (this._adapters[i].force || this._adapters[i].adapter.taste(node))
+                return this._adapters[i].adapter
         return undefined
     }
 }

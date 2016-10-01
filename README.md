@@ -282,13 +282,15 @@ TypeScript type definitions):
 - `new ASTQ(): ASTQ`:<br/>
   Create a new ASTQ instance.
 
-- `ASTQ#adapter(adapter: ASTQAdapter): ASTQ`:<br/>
-  Register a custom tree access adapter to support arbitrary AST-style
+- `ASTQ#adapter(adapter: (ASTQAdapter | ASTQAdapter[]), force: Boolean): ASTQ`:<br/>
+  Register one or more custom tree access adapter(s) to support arbitrary AST-style
   data structures. The `ASTQAdapter` has to conform to a particular
   duck-typed interface. See below for more information.
   By default ASTq has built-in adapters for ASTy, XML DOM, Parse5 and Mozilla AST.
-  Calling `adapter()` causes these three to be replaced with a single custom adapter.
-  Returns the API itself.
+  All those "taste" the node passed to `ASTQ#query` and hence are auto-selected.
+  Calling `adapter()` causes these to be replaced with a single custom adapter.
+  Its "tasting" can be disabled with option `force` set to `true`.
+  The `ASTQ#adapter` teturns the API itself.
 
         /*  the built-in implementation for supporting ASTy  */
         astq.adapter({
