@@ -38,7 +38,11 @@ export default class ASTQAdapterXMLDOM {
         return node.parentNode
     }
     static getChildNodes (node /*, type */) {
-        return node.childNodes
+        return (
+            (   typeof node.childNodes === "object"
+             && node.childNodes instanceof Array   ) ?
+            node.childNodes : []
+        )
     }
     static getNodeType (node) {
         return node.nodeName
