@@ -27,6 +27,7 @@ export default class ASTQAdapterXMLDOM {
         /* global Node: true */
         return (
                typeof Node === "object"
+            && node !== null
             && node instanceof Node
             && typeof node === "object"
             && typeof node.nodeType === "number"
