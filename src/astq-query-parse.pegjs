@@ -63,13 +63,19 @@ queryAxis "axis"
         }
 
 queryAxisType
-    =   ":" id:$(id) {
-            return id
+    =   ":" id:id {
+            return id.get("id")
+        }
+    /   ":" str:string {
+            return str.get("value")
         }
 
 queryMatch
     =   id:id {
             return ast("Match").merge(id)
+        }
+    /   str:string {
+            return ast("Match").set({ id: str.get("value") })
         }
     /   "*" {
             return ast("Match").set({ id: "*" })
@@ -177,6 +183,9 @@ exprFunctionCallParams
 exprAttribute "node attribute"
     =   "@" id:id {
             return ast("Attribute").merge(id)
+        }
+    /   "@" str:string {
+            return ast("Attribute").set({ id: str.get("value") })
         }
 
 exprParam "query parameter reference"

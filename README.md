@@ -133,9 +133,9 @@ axis to take only references matching the type `id` into account.
     axis-parent        ::= ("../" | "..//")
     axis-preceding     ::= "<//"
     axis-following     ::= ">//"
-    axis-type          ::= ":" id
+    axis-type          ::= ":" (id | string)
     result             ::= "!"
-    match              ::= id | "*"
+    match              ::= id | string | "*"
     filter             ::= "[" expr "]"
 
 The real power comes through the optional filter expression: it can be
@@ -186,7 +186,7 @@ parameter, literal value, parenthesis expression or path of a sub-query.
     relational       ::= expr ("==" | "!=" | "<=" | ">=" | "<" | ">" | "=~" | "!~") expr
     arithmethical    ::= expr ("+" | "-" | "*" | "/" | "%" | "**") expr
     function-call    ::= id "(" (expr ("," expr)*)? ")"
-    attribute-ref    ::= "@" id
+    attribute-ref    ::= "@" (id | string)
     query-parameter  ::= "{" id "}"
     id               ::= /[a-zA-Z_][a-zA-Z0-9_-]*/
     literal          ::= string | regexp | number | value

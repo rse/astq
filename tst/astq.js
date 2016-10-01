@@ -134,6 +134,11 @@ describe("ASTq Library", function () {
         expect(astq.query(node6, ">// *")).to.be.deep.equal([ node8, node9, node7, node4 ])
     })
 
+    it("quoted identifiers", function () {
+        expect(astq.query(node1, "// \"node3\"")).to.be.deep.equal([ node3 ])
+        expect(astq.query(node1, "// * [ @\"foo\" ]")).to.be.deep.equal([ node6 ])
+    })
+
     it("result marking", function () {
         expect(astq.query(node1, "* ! / * / * /*")).to.be.deep.equal([ node1 ])
         expect(astq.query(node1, "* / * ! / * /*")).to.be.deep.equal([ node2, node3, node4 ])
