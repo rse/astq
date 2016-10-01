@@ -25,7 +25,8 @@
 export default class ASTQAdapterASTY {
     static taste (node) {
         return (
-               typeof node      === "object"
+               typeof node === "object"
+            && node !== null
             && typeof node.ASTy === "boolean"
         )
     }
