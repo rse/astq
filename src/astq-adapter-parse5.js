@@ -38,20 +38,35 @@ export default class ASTQAdapterParse5 {
         return node.parentNode
     }
     static getChildNodes (node /*, type */) {
-        return node.childNodes
+        return (
+            (   typeof node.childNodes === "object"
+             && node.childNodes instanceof Array   ) ?
+            node.childNodes : []
+        )
     }
     static getNodeType (node) {
         return node.nodeName
     }
     static getNodeAttrNames (node) {
-        return Array.prototype.slice.call(node.attrs, 0)
-            .map((n) => n.name)
+        let attrs = [ "value" ]
+        if (   typeof node.attrs === "object"
+            && node.attrs instanceof Array   )
+            attrs = attrs.concat(node.attrs.map((n) => n.name))
+        return attrs
     }
     static getNodeAttrValue (node, attr) {
-        var values = Array.prototype.slice.call(node.attrs, 0)
-            .filter((n) => n.name === attr)
-            .map((n) => n.value)
-        return values.length === 1 ? values[0] : undefined
+        let value
+        if (attr === "value")
+            value = node.value
+        else if (   typeof node.attrs === "object"
+                 && node.attrs instanceof Array   ) {
+            let values = node.attrs
+                .filter((n) => n.name === attr)
+                .map((n) => n.value)
+            if (values.length === 1)
+                value = values[0]
+        }
+        return value
     }
 }
 
