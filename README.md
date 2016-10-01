@@ -293,8 +293,8 @@ TypeScript type definitions):
         /*  the built-in implementation for supporting ASTy  */
         astq.adapter({
             taste:            function (node)       { return (typeof node === "object" && node.ASTy) },
-            getParentNode:    function (node)       { return node.parent()  },
-            getChildNodes:    function (node)       { return node.childs()  },
+            getParentNode:    function (node, type) { return node.parent()  },
+            getChildNodes:    function (node, type) { return node.childs()  },
             getNodeType:      function (node)       { return node.type()    },
             getNodeAttrNames: function (node)       { return node.attrs()   },
             getNodeAttrValue: function (node, attr) { return node.get(attr) }
