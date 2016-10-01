@@ -27,9 +27,9 @@ let CacheLRU = require("cache-lru")
 
 /*  load internal dependencies  */
 import ASTQAdapter       from "./astq-adapter.js"
-import ASTQAdapterMOZAST from "./astq-adapter-mozast.js"
 import ASTQAdapterXMLDOM from "./astq-adapter-xmldom.js"
 import ASTQAdapterPARSE5 from "./astq-adapter-parse5.js"
+import ASTQAdapterMOZAST from "./astq-adapter-mozast.js"
 import ASTQAdapterASTY   from "./astq-adapter-asty.js"
 import ASTQFuncs         from "./astq-funcs.js"
 import ASTQFuncsSTD      from "./astq-funcs-std.js"
@@ -42,9 +42,9 @@ class ASTQ {
     constructor () {
         /*  create adapter registry and pre-register standard adapters  */
         this._adapter = new ASTQAdapter()
-            .register(ASTQAdapterMOZAST, false)
             .register(ASTQAdapterXMLDOM, false)
             .register(ASTQAdapterPARSE5, false)
+            .register(ASTQAdapterMOZAST, false)
             .register(ASTQAdapterASTY,   false)
 
         /*  create function registry and pre-register standard functions  */
