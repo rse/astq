@@ -28,7 +28,8 @@ export default class ASTQAdapterParse5 {
         return (
                typeof node === "object"
             && node !== null
-            && !(node instanceof Node)
+            && !(   typeof Node === "object"
+                 && node instanceof Node    )
             && typeof node.nodeName === "string"
             && node.nodeName !== ""
         )
