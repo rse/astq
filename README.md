@@ -205,6 +205,12 @@ The available pre-defined standard functions are:
   Return type of current node.
   Example: `type() == "foo"`
 
+- `attrs(sep: String): String`:<br/>
+  Return the `sep`-separated concatenation of all attribute names of
+  current node. The `sep` string is alway also prepended and appended
+  for easier comparison of the result string.
+  Example: `attr(",") == ",foo,bar,"`
+
 - `depth(): Number`:<br/>
   Return depth in AST of current node (counting from 1 for the root node).
   Example: `depth() <= 3`

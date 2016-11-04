@@ -49,6 +49,15 @@ const stdfuncs = {
         return A.getNodeType(T)
     },
 
+    /*  attribute names of node  */
+    "attrs": (A, T, sep) => {
+        if (sep === undefined)
+            sep = " "
+        /* eslint no-console: 0 */
+        console.log("FUCK", A.getNodeAttrNames(T).join(sep))
+        return sep + A.getNodeAttrNames(T).join(sep) + sep
+    },
+
     /*  depth of node in tree  */
     "depth": (A, T) => {
         let depth = 1
