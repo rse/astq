@@ -38,18 +38,20 @@ export default class ASTQAdapterXMLDOM {
         return node.parentNode
     }
     static getChildNodes (node /*, type */) {
-        return node.hasChildNodes() ?
+        return typeof node.childNodes === "object" && node.hasChildNodes() ?
             Array.prototype.slice.call(node.childNodes, 0) : []
     }
     static getNodeType (node) {
-        return node.nodeName
+        return typeof node.nodeName === "string" ?
+            node.nodeName : "unknown"
     }
     static getNodeAttrNames (node) {
-        return node.hasAttributes() ?
+        return typeof node.attributes === "object" && node.hasAttributes() ?
             Array.prototype.slice.call(node.attributes, 0).map((n) => n.nodeName) : []
     }
     static getNodeAttrValue (node, attr) {
-        return node.hasAttributes() ? node.getAttribute(attr) : undefined
+        return typeof node.attributes === "object" && node.hasAttributes() ?
+            node.getAttribute(attr) : undefined
     }
 }
 
