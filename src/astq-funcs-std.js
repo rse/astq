@@ -54,7 +54,6 @@ const stdfuncs = {
         if (sep === undefined)
             sep = " "
         /* eslint no-console: 0 */
-        console.log("FUCK", A.getNodeAttrNames(T).join(sep))
         return sep + A.getNodeAttrNames(T).join(sep) + sep
     },
 
