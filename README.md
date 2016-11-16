@@ -306,7 +306,7 @@ TypeScript type definitions):
             getNodeType:      function (node)       { return node.type()    },
             getNodeAttrNames: function (node)       { return node.attrs()   },
             getNodeAttrValue: function (node, attr) { return node.get(attr) }
-        }
+        })
 
 - `ASTQ#version(): { major: Number, minor: Number, micro: Number, date: Number }`:<br/>
   Return the current ASTq library version details.
@@ -341,7 +341,7 @@ TypeScript type definitions):
   If `trace` is `true` the execution is dumped to the console.
   Returns an array of zero or more matching AST nodes.
 
-- `ASTQ#query(node: Object, selector: String, params?: Object, trace: Boolean): Object[]`: <br/>
+- `ASTQ#query(node: Object, selector: String, params?: Object, trace?: Boolean): Object[]`: <br/>
   Just the convenient combination of `compile` and `execute`:
   `execute(node, compile(selector, trace), params, trace)`.
   Use this as the standard query method except you need more control.
