@@ -38,7 +38,7 @@ export default class ASTQAdapterXMLDOM {
         return node.parentNode
     }
     static getChildNodes (node /*, type */) {
-        return typeof node.childNodes === "object" && node.hasChildNodes() ?
+        return typeof node.childNodes === "object" && node.childNodes !== null && node.hasChildNodes() ?
             Array.prototype.slice.call(node.childNodes, 0) : []
     }
     static getNodeType (node) {
@@ -46,11 +46,11 @@ export default class ASTQAdapterXMLDOM {
             node.nodeName : "unknown"
     }
     static getNodeAttrNames (node) {
-        return typeof node.attributes === "object" && node.hasAttributes() ?
+        return typeof node.attributes === "object" && node.attributes !== null && node.hasAttributes() ?
             Array.prototype.slice.call(node.attributes, 0).map((n) => n.nodeName) : []
     }
     static getNodeAttrValue (node, attr) {
-        return typeof node.attributes === "object" && node.hasAttributes() ?
+        return typeof node.attributes === "object" && node.attributes !== null && node.hasAttributes() ?
             node.getAttribute(attr) : undefined
     }
 }
