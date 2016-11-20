@@ -1,0 +1,17 @@
+{
+    "name":        "astq-sample",
+    "version":     "0.0.0",
+    "devDependencies": {
+        "babel-cli":            "6.18.0",
+        "babel-preset-es2015":  "6.18.0"
+    },
+    "dependencies": {
+        "acorn":                "~4.0.3",
+        "parse5":               "~2.2.3",
+        "xmldom":               "~0.1.22",
+        "less":                 "~2.7.1"
+    },
+    "scripts": {
+        "start": "babel-node --presets es2015 sample.js"
+    }
+}
