@@ -1,6 +1,6 @@
 ##
 ##  ASTq -- Abstract Syntax Tree (AST) Query Engine
-##  Copyright (c) 2014-2016 Ralf S. Engelschall <rse@engelschall.com>
+##  Copyright (c) 2014-2017 Ralf S. Engelschall <rse@engelschall.com>
 ##
 ##  Permission is hereby granted, free of charge, to any person obtaining
 ##  a copy of this software and associated documentation files (the
@@ -38,11 +38,4 @@ clean: bootstrap
 
 distclean: bootstrap
 	@$(GRUNT) clean:clean clean:distclean
-
-update-package-json: bootstrap
-	$(NPM) install npm-check-updates
-	./node_modules/npm-check-updates/bin/npm-check-updates -u
-
-watch:
-	watch "clear; grunt test" src --watch 1
 
