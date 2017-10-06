@@ -1,6 +1,6 @@
 {
     "name":        "astq",
-    "version":     "2.0.2",
+    "version":     "2.0.3",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
     "license":     "MIT",
@@ -20,7 +20,7 @@
         "pegjs":                "~0.10.0",
         "pegjs-otf":            "~1.2.4",
         "pegjs-util":           "~1.4.4",
-        "asty":                 "~1.5.2",
+        "asty":                 "~1.5.3",
         "cache-lru":            "~1.0.17"
     },
     "devDependencies": {
