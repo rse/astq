@@ -1,5 +1,4 @@
 {
-    "ecmaFeatures": {},
     "parser": "babel-eslint",
     "env": {
         "browser": false,
