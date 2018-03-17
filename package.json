@@ -1,6 +1,6 @@
 {
     "name":        "astq",
-    "version":     "2.0.5",
+    "version":     "2.0.6",
     "description": "Abstract Syntax Tree (AST) Query Engine",
     "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
     "license":     "MIT",
