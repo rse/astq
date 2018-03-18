@@ -429,7 +429,7 @@ Implementation Notice
 ---------------------
 
 Although ASTq is written in ECMAScript 6, it is transpiled to ECMAScript
-5 and this way runs in really all(!) current (as of 2015) JavaScript
+5 and this way runs in really all(!) current (as of 2018) JavaScript
 environments, of course.
 
 Additionally, there are two transpilation results: first, there is
