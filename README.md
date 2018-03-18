@@ -77,14 +77,24 @@ and an (optional) AST node filter expression:
     step-initial     ::= axis? match result? filter?
     step-subsequent  ::= axis  match result? filter?
 
-The search axis can be either for direct (`/`) or any (`//`) child
-nodes, for direct (`-/`) or any (`-//`) left sibling node(s), for direct
-(`+/`) or any (`+//`) right sibling node(s), for direct (`../`) or any
-(`..//`) parent node(s), for any preceding nodes (`<//`), or for any
-following nodes (`>//`).
+The search axis can be either...
 
-As an illustrating example: given an AST of the following particular
-nodes...
+- `/`    for direct child nodes, or
+- `//`   for any descendant nodes, or
+- `./`   for current node plus direct child nodes, or
+- `.//`  for current node plus any descendant nodes, or
+- `-/`   for direct left sibling node, or
+- `-//`  for any left sibling nodes, or
+- `+/`   for direct right sibling node, or
+- `+//`  for any right sibling nodes, or
+- `~/`   for direct left and right sibling nodes, or
+- `~//`  for all left and right sibling nodes, or
+- `../`  for direct parent node, or
+- `..//` for any parent nodes, or
+- `<//`  for any preceding nodes, or
+- `>//`  for any following nodes.
+
+As an illustrating example: given an AST of the following particular nodes, ...
 
           A
           |
@@ -103,13 +113,17 @@ nodes...
 ...the following queries and their result exist:
 
 Start Node | Query    | Result Node(s)
------------|----------|----------------
+-----------|----------|---------------------------------
 `D`        | `/    *` | `G, H, I`
 `D`        | `//   *` | `G, H, J, K, I`
+`D`        | `./   *` | `D, G, H, I`
+`D`        | `.//  *` | `D, G, H, J, K, I`
 `D`        | `-/   *` | `C`
 `D`        | `-//  *` | `C, B`
 `D`        | `+/   *` | `E`
 `D`        | `+//  *` | `E, F`
+`D`        | `~/   *` | `C, E`
+`D`        | `~//  *` | `B, C, E, F`
 `H`        | `../  *` | `D`
 `H`        | `..// *` | `D, A`
 `H`        | `<//  *` | `G, D, C B A`
@@ -124,12 +138,14 @@ axis to take only references matching the type `id` into account.
     axis-direction     ::= axis-child
                          | axis-sibling-left
                          | axis-sibling-right
+                         | axis-sibling
                          | axis-parent
                          | axis-preceding
                          | axis-following
-    axis-child         ::= ("/" | "//")
+    axis-child         ::= ("/" | "//" | "./" | ".//")
     axis-sibling-left  ::= ("-/" | "-//")
     axis-sibling-right ::= ("+/" | "+//")
+    axis-sibling       ::= ("~/" | "~//")
     axis-parent        ::= ("../" | "..//")
     axis-preceding     ::= "<//"
     axis-following     ::= ">//"

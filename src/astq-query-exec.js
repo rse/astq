@@ -120,6 +120,20 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                 }
                 this.adapter.getChildNodes(T, t).forEach((T) => walk(T))
             }
+            else if (op === "./") {
+                /*  current node plus direct child nodes  */
+                matchAndTake(T)
+                this.adapter.getChildNodes(T, t).forEach((T) => matchAndTake(T))
+            }
+            else if (op === ".//") {
+                /*  current node plus transitive child nodes  */
+                matchAndTake(T)
+                let walk = (T) => {
+                    matchAndTake(T)
+                    this.adapter.getChildNodes(T, t).forEach((T) => walk(T)) /* RECURSION */
+                }
+                this.adapter.getChildNodes(T, t).forEach((T) => walk(T))
+            }
             else if (op === "-/") {
                 /*  direct left sibling  */
                 let parent = this.adapter.getParentNode(T, "*")
@@ -172,6 +186,31 @@ export default class ASTQQueryExec extends ASTQQueryTrace {
                             break
                     if (i < pchilds.length)
                         for (i++; i < pchilds.length; i++)
+                            matchAndTake(pchilds[i])
+                }
+            }
+            else if (op === "~/") {
+                /*  direct left and right sibling  */
+                let parent = this.adapter.getParentNode(T, "*")
+                if (parent !== null) {
+                    let pchilds = this.adapter.getChildNodes(parent, t)
+                    let i
+                    for (i = 0; i < pchilds.length; i++)
+                        if (pchilds[i] === T)
+                            break
+                    if (i > 0)
+                        matchAndTake(pchilds[i - 1])
+                    if (i < pchilds.length - 1)
+                        matchAndTake(pchilds[i + 1])
+                }
+            }
+            else if (op === "~//") {
+                /*  transitive left and right siblings  */
+                let parent = this.adapter.getParentNode(T, "*")
+                if (parent !== null) {
+                    let pchilds = this.adapter.getChildNodes(parent, t)
+                    for (let i = 0; i < pchilds.length; i++)
+                        if (pchilds[i] !== T)
                             matchAndTake(pchilds[i])
                 }
             }

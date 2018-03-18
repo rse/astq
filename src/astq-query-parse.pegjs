@@ -58,7 +58,7 @@ queryStepSubsequent
         }
 
 queryAxis "axis"
-    =   op:$("//" / "/" / "-//" / "-/" / "+//" / "+/" / "..//" / "../" / "<//" / ">//") t:queryAxisType? {
+    =   op:$("//" / "/" / "-//" / "-/" / "+//" / "+/" / "~//" / "~/" / "..//" / "../" / ".//" / "./" / "<//" / ">//") t:queryAxisType? {
             return ast("Axis").set({ op: op, type: t !== null ? t : "*" })
         }
 
