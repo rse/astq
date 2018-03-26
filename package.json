@@ -20,8 +20,8 @@
         "pegjs":                "0.10.0",
         "pegjs-otf":            "1.2.5",
         "pegjs-util":           "1.4.6",
-        "asty":                 "1.6.0",
-        "cache-lru":            "1.0.18"
+        "asty":                 "1.6.2",
+        "cache-lru":            "1.0.19"
     },
     "devDependencies": {
         "grunt":                "1.0.2",
@@ -34,7 +34,7 @@
         "grunt-eslint":         "20.1.0",
         "babel-eslint":         "8.2.2",
         "babel-core":           "6.26.0",
-        "mocha":                "5.0.4",
+        "mocha":                "5.0.5",
         "chai":                 "4.1.2",
         "babelify":             "8.0.0",
         "babel-preset-es2015":  "6.24.1",
