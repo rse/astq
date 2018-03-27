@@ -1,8 +1,8 @@
 
-import ASTQ from "../"
+const ASTQ = require("..")
 
 /*  query ECMAScript source-code  */
-(() => {
+;(() => {
     let source = `
         class Foo {
             foo () {
