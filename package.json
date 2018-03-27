@@ -18,8 +18,8 @@
     "bugs":     "https://github.com/rse/astq/issues",
     "dependencies": {
         "pegjs":                "0.10.0",
-        "pegjs-otf":            "1.2.5",
-        "pegjs-util":           "1.4.6",
+        "pegjs-otf":            "1.2.6",
+        "pegjs-util":           "1.4.7",
         "asty":                 "1.6.3",
         "cache-lru":            "1.0.19"
     },
