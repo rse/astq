@@ -24,37 +24,18 @@
 
 /* global module: true */
 module.exports = function (grunt) {
-    grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-mocha-test");
     grunt.loadNpmTasks("grunt-eslint");
-    grunt.loadNpmTasks("grunt-jscs");
 
     grunt.initConfig({
         version: grunt.file.readYAML("VERSION.yml"),
-        jshint: {
-            options: {
-                jshintrc: "jshint.json"
-            },
-            "gruntfile":  [ "Gruntfile.js" ],
-            "astq": [ "src/**/*.js", "tst/**/*.js" ]
-        },
         eslint: {
             options: {
-                configFile: "eslint.json"
+                configFile: "eslint.yaml"
             },
             "astq": [ "src/**/*.js", "tst/**/*.js" ]
-        },
-        jscs: {
-            "astq": {
-                options: {
-                    config: "jscs.json"
-                },
-                files: {
-                    src: [ "src/**/*.js", "tst/**/*.js" ]
-                }
-            }
         },
         browserify: {
             "astq-browser": {
@@ -69,17 +50,25 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        [ "babelify", { presets: [ "es2015" ] } ],
-                        "pegjs-otf/transform"
+                        [ "babelify", {
+                            presets: [
+                                [ "env", {
+                                    "targets": {
+                                        "browser": [ "last 8 versions", "> 1%", "ie 9" ]
+                                    }
+                                } ]
+                            ]
+                        } ],
+                        "pegjs-otf/transform",
+                        [ "uglifyify", { sourceMap: false, global: true } ]
                     ],
                     plugin: [
-                        [ "minifyify", { map: "astq.browser.map", output: "lib/astq.browser.map" } ],
                         "browserify-derequire",
                         "browserify-header"
                     ],
                     browserifyOptions: {
                         standalone: "ASTQ",
-                        debug: true
+                        debug: false
                     }
                 }
             },
@@ -95,7 +84,15 @@ module.exports = function (grunt) {
                             { from: /\$micro/g, to: "<%= version.micro %>" },
                             { from: /\$date/g,  to: "<%= version.date  %>" }
                         ]}],
-                        [ "babelify", { presets: [ "es2015" ] } ],
+                        [ "babelify", {
+                            presets: [
+                                [ "env", {
+                                    "targets": {
+                                        "node": [ "4.0.0" ]
+                                    }
+                                } ]
+                            ]
+                        } ],
                         "pegjs-otf/transform"
                     ],
                     plugin: [
@@ -129,7 +126,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask("default", [ "jshint", "eslint", "jscs", "browserify", "mochaTest" ]);
-    grunt.registerTask("test", [ "jshint:astq", "browserify:astq-node", "mochaTest" ]);
+    grunt.registerTask("default", [ "eslint", "browserify", "mochaTest" ]);
+    grunt.registerTask("test", [ "browserify:astq-node", "mochaTest" ]);
 };
 
