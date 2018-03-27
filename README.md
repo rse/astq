@@ -13,16 +13,8 @@ Abstract Syntax Tree (AST) Query Engine
 Installation
 ------------
 
-#### Node environments (with NPM package manager):
-
 ```shell
 $ npm install astq
-```
-
-#### Browser environments (with Bower package manager):
-
-```shell
-$ bower install astq
 ```
 
 About
