@@ -351,7 +351,7 @@ TypeScript type definitions):
   If `trace` is `true` the compiling is dumped to the console.
   Returns the query object.
 
-- `ASTQ#execute(node: Object, query: ASTQQuery, params, trace?: Boolean): Object[]`:<br/>
+- `ASTQ#execute(node: Object, query: ASTQQuery, params?: Object, trace?: Boolean): Object[]`:<br/>
   Execute the previously compiled `query` (see `compile` above) at `node`.
   The optional `params` object can provide parameters for the `{name}` query constructs.
   If `trace` is `true` the execution is dumped to the console.
