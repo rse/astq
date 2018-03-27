@@ -50,5 +50,9 @@
     },
     "engines": {
         "node":                   ">=4.0.0"
+    },
+    "scripts": {
+        "prepublishOnly":  "grunt default",
+        "build":           "grunt default"
     }
 }
