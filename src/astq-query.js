@@ -22,9 +22,7 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/* global __dirname: true */
-/* global console: true */
-/* eslint no-console: 0 */
+/* eslint no-console: off */
 
 /*  load external dependencies  */
 import ASTY     from "asty"
