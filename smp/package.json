@@ -9,5 +9,8 @@
     },
     "scripts": {
         "start":   "node sample.js"
+    },
+    "engines": {
+        "node":    ">=8.0.0"
     }
 }
