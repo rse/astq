@@ -26,12 +26,10 @@
 
 export default class ASTQAdapterMozAST {
     static taste (node) {
-        return (
-               typeof node === "object"
+        return (typeof node === "object"
             && node !== null
             && typeof node.type === "string"
-            && node.type !== ""
-        )
+            && node.type !== "")
     }
     static getParentNode (node, type) {
         if (type !== "*" && type !== "parent")
@@ -52,7 +50,7 @@ export default class ASTQAdapterMozAST {
                      && node[field] instanceof Array) {
                 node[field].forEach((node) => {
                     if (this.taste(node))
-                       childs.push(node)
+                        childs.push(node)
                 })
             }
         }

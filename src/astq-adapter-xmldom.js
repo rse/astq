@@ -25,14 +25,12 @@
 export default class ASTQAdapterXMLDOM {
     static taste (node) {
         /* global Node: true */
-        return (
-               typeof Node === "object"
+        return (typeof Node === "object"
             && node !== null
             && node instanceof Node
             && typeof node === "object"
             && typeof node.nodeType === "number"
-            && typeof node.nodeName === "string"
-        )
+            && typeof node.nodeName === "string")
     }
     static getParentNode (node /*, type */) {
         return node.parentNode

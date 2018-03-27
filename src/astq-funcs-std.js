@@ -129,7 +129,7 @@ const stdfuncs = {
             throw new Error("invalid argument to function \"follows\" (node expected)")
         if (T === other)
             return false
-        let pathOfT     = [ T     ].concat(parents(A, T    )).reverse()
+        let pathOfT = [ T ].concat(parents(A, T)).reverse()
         let pathOfOther = [ other ].concat(parents(A, other)).reverse()
         let len = Math.min(pathOfT.length, pathOfOther.length)
         let i

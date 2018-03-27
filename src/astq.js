@@ -23,7 +23,7 @@
 */
 
 /*  load external depdendencies  */
-let CacheLRU = require("cache-lru")
+import CacheLRU          from "cache-lru"
 
 /*  load internal dependencies  */
 import ASTQAdapter       from "./astq-adapter.js"

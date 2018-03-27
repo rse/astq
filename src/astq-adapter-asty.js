@@ -24,11 +24,7 @@
 
 export default class ASTQAdapterASTY {
     static taste (node) {
-        return (
-               typeof node === "object"
-            && node !== null
-            && typeof node.ASTy === "boolean"
-        )
+        return (typeof node === "object" && node !== null && typeof node.ASTy === "boolean")
     }
     static getParentNode (node /*, type */) {
         return node.parent()

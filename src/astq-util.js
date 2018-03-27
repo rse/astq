@@ -64,6 +64,7 @@ export default class ASTQUtil {
 
     /*  coerce value to particular type  */
     static coerce (value, type) {
+        /* eslint valid-typeof: off */
         if (typeof value !== type) {
             try {
                 switch (type) {

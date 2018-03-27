@@ -25,32 +25,26 @@
 export default class ASTQAdapterParse5 {
     static taste (node) {
         /* global Node: true */
-        return (
-               typeof node === "object"
+        return (typeof node === "object"
             && node !== null
-            && !(   typeof Node === "object"
-                 && node instanceof Node    )
+            && !(typeof Node === "object" && node instanceof Node)
             && typeof node.nodeName === "string"
-            && node.nodeName !== ""
-        )
+            && node.nodeName !== "")
     }
     static getParentNode (node /*, type */) {
         return node.parentNode
     }
     static getChildNodes (node /*, type */) {
-        return (
-            (   typeof node.childNodes === "object"
-             && node.childNodes instanceof Array   ) ?
-            node.childNodes : []
-        )
+        return ((typeof node.childNodes === "object"
+            && node.childNodes instanceof Array) ?
+            node.childNodes : [])
     }
     static getNodeType (node) {
         return node.nodeName
     }
     static getNodeAttrNames (node) {
         let attrs = [ "value" ]
-        if (   typeof node.attrs === "object"
-            && node.attrs instanceof Array   )
+        if (typeof node.attrs === "object" && node.attrs instanceof Array)
             attrs = attrs.concat(node.attrs.map((n) => n.name))
         return attrs
     }
@@ -58,8 +52,7 @@ export default class ASTQAdapterParse5 {
         let value
         if (attr === "value")
             value = node.value
-        else if (   typeof node.attrs === "object"
-                 && node.attrs instanceof Array   ) {
+        else if (typeof node.attrs === "object" && node.attrs instanceof Array) {
             let values = node.attrs
                 .filter((n) => n.name === attr)
                 .map((n) => n.value)

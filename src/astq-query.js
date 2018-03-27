@@ -27,18 +27,19 @@
 /* eslint no-console: 0 */
 
 /*  load external dependencies  */
-const ASTY     = require("asty")
-const PEG      = require("pegjs-otf")
-const PEGUtil  = require("pegjs-util")
-
-/*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
-const ASTQQueryParse = PEG.generateFromFile(
-    __dirname + "/astq-query-parse.pegjs",
-    { optimize: "speed", cache: true }
-)
+import ASTY     from "asty"
+import PEGUtil  from "pegjs-util"
 
 /*  get query executor  */
 import ASTQQueryExec from "./astq-query-exec.js"
+
+/*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
+const PEG = require("pegjs-otf")
+const ASTQQueryParse = PEG.generateFromFile(
+    /* eslint no-path-concat: off */
+    __dirname + "/astq-query-parse.pegjs",
+    { optimize: "speed", cache: true }
+)
 
 export default class ASTQQuery {
     /*  create a new instance of the query instance  */
