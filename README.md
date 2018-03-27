@@ -420,18 +420,18 @@ baz: 42
 Implementation Notice
 ---------------------
 
-Although ASTq is written in ECMAScript 6, it is transpiled to ECMAScript
-5 and this way runs in really all(!) current (as of 2018) JavaScript
-environments, of course.
+Although ASTq is written in ECMAScript 2018, it is transpiled to older
+environments and this way runs in really all current (as of 2018)
+JavaScript environments, of course.
 
-Additionally, there are two transpilation results: first, there is
-`astq.browser.js` (plus `astq.browser.map`) for Browser environments.
-This is a size-compressed variant but still with source-map for
-debugging and with the external dependencies `asty`, `pegjs-otf` and
-`pegjs-util` directly embedded. Second, there is `astq.node.js` for
-Node.js/IO.js environments. This is a variant without compression and no
-source-maps and with the external dependencies `asty`, `pegjs-otf` and
-`pegjs-util` kept.
+Additionally, there are two transpilation results: first, there is a
+compressed `astq.browser.js` for Browser environments. Second, there is
+an uncompressed `astq.node.js` for Node.js environments.
+
+The Browser variant `astq.node.js` has all external dependencies `asty`,
+`pegjs-otf`, `pegjs-util`, and `cache-lru` directly embedded. The
+Node.js variant `astq.node.js` still requires the external dependencies
+`asty`, `pegjs-otf`, `pegjs-util`, and `cache-lru`.
 
 License
 -------
