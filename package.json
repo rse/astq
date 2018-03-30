@@ -21,7 +21,7 @@
         "pegjs":                  "0.10.0",
         "pegjs-otf":              "1.2.6",
         "pegjs-util":             "1.4.7",
-        "asty":                   "1.7.3",
+        "asty":                   "1.7.4",
         "cache-lru":              "1.0.19"
     },
     "devDependencies": {
@@ -37,7 +37,7 @@
         "eslint-config-standard": "11.0.0",
         "eslint-plugin-standard": "3.0.1",
         "eslint-plugin-promise":  "3.7.0",
-        "eslint-plugin-import":   "2.9.0",
+        "eslint-plugin-import":   "2.10.0",
         "eslint-plugin-node":     "6.0.1",
         "mocha":                  "5.0.5",
         "chai":                   "4.1.2",
