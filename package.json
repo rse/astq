@@ -20,9 +20,9 @@
     "dependencies": {
         "pegjs":                  "0.10.0",
         "pegjs-otf":              "1.2.6",
-        "pegjs-util":             "1.4.7",
-        "asty":                   "1.7.4",
-        "cache-lru":              "1.0.19"
+        "pegjs-util":             "1.4.8",
+        "asty":                   "1.7.5",
+        "cache-lru":              "1.1.0"
     },
     "devDependencies": {
         "grunt":                  "1.0.2",
