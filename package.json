@@ -19,10 +19,10 @@
     "bugs":     "https://github.com/rse/astq/issues",
     "dependencies": {
         "pegjs":                  "0.10.0",
-        "pegjs-otf":              "1.2.10",
-        "pegjs-util":             "1.4.14",
+        "pegjs-otf":              "1.2.11",
+        "pegjs-util":             "1.4.15",
         "asty":                   "1.8.0",
-        "cache-lru":              "1.1.5"
+        "cache-lru":              "1.1.6"
     },
     "devDependencies": {
         "grunt":                  "1.0.3",
