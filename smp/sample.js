@@ -22,7 +22,7 @@ const ASTQ = require("..")
             && /:init Literal    [ @value ]
         ]
     `).forEach((node) => {
-        console.log(`FOUND: variable: ${node.id.name}, value: ${node.init.value}`)
+        console.log(`FOUND MOZAST: variable: ${node.id.name}, value: ${node.init.value}`)
     })
 })();
 
@@ -56,7 +56,7 @@ const ASTQ = require("..")
     `).forEach((node) => {
         let tag   = node.nodeName
         let value = astq.query(node, `// "#text"`).map((node) => node.value).join("")
-        console.log(`FOUND: tag: ${tag}, value: ${value}`)
+        console.log(`FOUND PARSE5: tag: ${tag}, value: ${value}`)
     })
 })();
 
@@ -79,7 +79,27 @@ const ASTQ = require("..")
             @enabled == "true"
         ]
     `).forEach((node) => {
-        console.log(`FOUND: ${node.nodeName}`)
+        console.log(`FOUND XMLDOM: ${node.nodeName}`)
+    })
+})();
+
+/*  query JSON source-code  */
+(() => {
+    let ast = {
+        config: {
+            foo: { enabled: true, body: "Foo" },
+            bar: { body: "Bar" },
+            quux: { enabled: true, body: "Quux" }
+        }
+    }
+    let astq = new ASTQ()
+    astq.adapter("json", true)
+    astq.query(ast, `
+        // * /:foo * [
+            @enabled == true
+        ]
+    `).forEach((node) => {
+        console.log(`FOUND JSON: ${JSON.stringify(node)}`)
     })
 })();
 

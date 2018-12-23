@@ -2,10 +2,10 @@
     "name":        "astq-sample",
     "version":     "0.0.0",
     "dependencies": {
-        "acorn":   "5.5.3",
-        "parse5":  "4.0.0",
+        "acorn":   "6.0.4",
+        "parse5":  "5.1.0",
         "xmldom":  "0.1.27",
-        "less":    "3.0.1"
+        "less":    "3.9.0"
     },
     "scripts": {
         "start":   "node sample.js"
