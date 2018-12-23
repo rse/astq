@@ -32,6 +32,7 @@ import ASTQAdapterPARSE5  from "./astq-adapter-parse5.js"
 import ASTQAdapterMOZAST  from "./astq-adapter-mozast.js"
 import ASTQAdapterGRAPHQL from "./astq-adapter-graphql.js"
 import ASTQAdapterJSON    from "./astq-adapter-json.js"
+import ASTQAdapterCHEERIO from "./astq-adapter-cheerio.js"
 import ASTQAdapterASTY    from "./astq-adapter-asty.js"
 import ASTQFuncs          from "./astq-funcs.js"
 import ASTQFuncsSTD       from "./astq-funcs-std.js"
@@ -49,6 +50,7 @@ class ASTQ {
             .register(ASTQAdapterMOZAST,  false)
             .register(ASTQAdapterGRAPHQL, false)
             .register(ASTQAdapterJSON,    false)
+            .register(ASTQAdapterCHEERIO, false)
             .register(ASTQAdapterASTY,    false)
 
         /*  create function registry and pre-register standard functions  */
@@ -81,6 +83,7 @@ class ASTQ {
                 else if (adapter === "xmldom")  adapter = ASTQAdapterXMLDOM
                 else if (adapter === "parse5")  adapter = ASTQAdapterPARSE5
                 else if (adapter === "json")    adapter = ASTQAdapterJSON
+                else if (adapter === "cheerio") adapter = ASTQAdapterCHEERIO
                 else if (adapter === "asty")    adapter = ASTQAdapterASTY
                 else
                     throw new Error("ASTQ#adapter: unknown built-in adapter")

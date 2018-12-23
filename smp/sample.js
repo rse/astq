@@ -103,3 +103,38 @@ const ASTQ = require("..")
     })
 })();
 
+/*  query HTML source-code  */
+(() => {
+    let source = `
+        <html>
+            <head>
+                <title>Foo</title>
+            </head>
+            <body>
+                <h1>Bar <i>Baz</i></h1>
+                Sample
+                <h2>Bar</h2>
+                Sample
+                <h3>Quux</h3>
+                Sample
+            </body>
+        </html>
+    `
+    const cheerio = require("cheerio")
+    let $ = cheerio.load(source)
+    let ast = $.root()[0]
+    let astq = new ASTQ()
+    astq.adapter("cheerio")
+    astq.query(ast, `
+        /* query all headlines */
+        // * [
+            type() =~ \`^h[1-9]$\`
+            && // "#text"
+        ]
+    `).forEach((node) => {
+        let tag = node.tagName
+        let value = astq.query(node, `// "#text"`).map((node) => node.nodeValue).join("")
+        console.log(`FOUND PARSE5: tag: ${tag}, value: ${value}`)
+    })
+})();
+
