@@ -54,9 +54,8 @@ export default class ASTQAdapterGraphQL {
                 checkField(node, field)
         }
         else {
-            if (typeof node[type] === "undefined")
-                throw new Error("no such axis named \"" + type + "\" for walking to child nodes")
-            checkField(node, type)
+            if (typeof node[type] !== "undefined")
+                checkField(node, type)
         }
         return childs
     }
