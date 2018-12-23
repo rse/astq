@@ -31,6 +31,7 @@ import ASTQAdapterXMLDOM  from "./astq-adapter-xmldom.js"
 import ASTQAdapterPARSE5  from "./astq-adapter-parse5.js"
 import ASTQAdapterMOZAST  from "./astq-adapter-mozast.js"
 import ASTQAdapterGRAPHQL from "./astq-adapter-graphql.js"
+import ASTQAdapterJSON    from "./astq-adapter-json.js"
 import ASTQAdapterASTY    from "./astq-adapter-asty.js"
 import ASTQFuncs          from "./astq-funcs.js"
 import ASTQFuncsSTD       from "./astq-funcs-std.js"
@@ -47,6 +48,7 @@ class ASTQ {
             .register(ASTQAdapterPARSE5,  false)
             .register(ASTQAdapterMOZAST,  false)
             .register(ASTQAdapterGRAPHQL, false)
+            .register(ASTQAdapterJSON,    false)
             .register(ASTQAdapterASTY,    false)
 
         /*  create function registry and pre-register standard functions  */
@@ -74,10 +76,11 @@ class ASTQ {
             throw new Error("ASTQ#adapter: you can force just a single adapter to not taste the AST node")
         adapter.forEach((adapter) => {
             if (typeof adapter === "string") {
-                if (adapter === "mozast")       adapter = ASTQAdapterMOZAST
+                if      (adapter === "mozast")  adapter = ASTQAdapterMOZAST
                 else if (adapter === "graphql") adapter = ASTQAdapterGRAPHQL
                 else if (adapter === "xmldom")  adapter = ASTQAdapterXMLDOM
                 else if (adapter === "parse5")  adapter = ASTQAdapterPARSE5
+                else if (adapter === "json")    adapter = ASTQAdapterJSON
                 else if (adapter === "asty")    adapter = ASTQAdapterASTY
                 else
                     throw new Error("ASTQ#adapter: unknown built-in adapter")
