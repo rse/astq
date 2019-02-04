@@ -403,6 +403,7 @@ let source = `
 let ast = acorn.parse(source, { ecmaVersion: 6 })
 
 let astq = new ASTQ()
+astq.adapter("mozast")
 astq.query(ast, `
     // VariableDeclarator [
            /:id   Identifier [ @name  ]
