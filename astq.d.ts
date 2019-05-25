@@ -1,11 +1,9 @@
-import { version } from 'punycode';
-
 declare class ASTQ<Node = any> {
 
     /**
      * Create a new ASTQ instance.
      */
-    constructor()
+    constructor();
     
     /**
      * Register one or more custom tree access adapter(s) to support arbitrary
@@ -36,12 +34,12 @@ astq.adapter({
 })
 ```
      */
-    adapter(adapter: ASTQAdapter<Node> | ASTQAdapter<Node>[], force?: boolean): ASTQ
+    adapter(adapter: ASTQAdapter<Node> | ASTQAdapter<Node>[], force?: boolean): ASTQ;
 
     /**
-     * Return the current ASTq library version details.
+     * Return the current ASTQ library version details.
      */
-    version(): { major: number, minor: number, micro: number, date: number }
+    version(): { major: number, minor: number, micro: number, date: number };
 
     /**
      * Register function named name by providing the callback func which has to
@@ -58,7 +56,7 @@ astq.func("depth", function (adapter, node) => {
 })
   ```
      */
-    func(name: string, func: (adapter: ASTQAdapter<Node>, node: Node, ...args: any[]) => any): ASTQ
+    func(name: string, func: (adapter: ASTQAdapter<Node>, node: Node, ...args: any[]) => any): ASTQ;
 
     /**
      * Set the upper limit for the internal query cache to `num`, i.e., up to
@@ -66,22 +64,22 @@ astq.func("depth", function (adapter, node) => {
      *
      * Set `num` to 0 to disable the cache at all. Returns the API itself.
      */
-    cache(num: number): ASTQ
+    cache(num: number): ASTQ;
 
     /**
      * Compile `selector` DSL into an internal query object for subsequent
      * processing by `execute`. If [trace] is `true` the compiling is dumped
      * to the console. Returns the query object.
      */
-    compile(selector: string, trace?: boolean): ASTQQuery
+    compile(selector: string, trace?: boolean): ASTQQuery<Node>;
 
     /**
      * Execute the previously compiled `query` (see compile above) at `node`. The
      * optional `params` object can provide parameters for the {name} query
      * constructs. If `trace` is `true` the execution is dumped to the console.
-     * Returns an array of zero or more matching AST nodes
+     * Returns an array of zero or more matching AST nodes.
      */
-    execute(node: Node, query: ASTQQuery<Node>, params?: any, trace?: boolean): Node[]
+    execute(node: Node, query: ASTQQuery<Node>, params?: any, trace?: boolean): Node[];
 
     /**
      * Just the convenient combination of compile and execute: 
@@ -92,8 +90,7 @@ astq.func("depth", function (adapter, node) => {
      * constructs. If `trace` is true the compiling and execution is dumped to the
      * console. Returns an array of zero or more matching AST nodes.
      */
-    query(node: Node, selector: String, params?: any, trace?: boolean): Node[]
-
+    query(node: Node, selector: String, params?: any, trace?: boolean): Node[];
 }
 
 /**
@@ -101,55 +98,54 @@ astq.func("depth", function (adapter, node) => {
  * provided. By default ASTq has adapters for use with ASTy, XML DOM, Parse5 and
  * Mozilla AST. 
  */
-interface ASTQAdapter<Node = any> {
+export interface ASTQAdapter<Node = any> {
     /**
      * Taste node to be sure this adapter is intended to handle it.
      */
-    taste(node: any): boolean
+    taste(node: any): boolean;
 
     /**
      * Return parent node of `node`. In case the underlying data structure
      * does not support traversing to parent nodes, throw an exception.
      */
-    getParentNode(node: Node): Node | undefined
+    getParentNode(node: Node): Node | undefined;
 
     /**
      * Return the list of all child nodes of `node`.
      */
-    getChildNodes(node: Node): Node[]
+    getChildNodes(node: Node): Node[];
 
     /**
      * Return the type of `node`.
      */
-    getNodeType(node: Node): string
+    getNodeType(node: Node): string;
 
     /**
      * Return the list of all attribute names of `node`.
      */
-    getNodeAttrNames(node: Node): string[]
+    getNodeAttrNames(node: Node): string[];
 
     /**
      * Return the value of attribute `attr` of `node`.
      */
-    getNodeAttrValue(node: Node, attr: string): any
+    getNodeAttrValue(node: Node, attr: string): any;
 }
 
 interface ASTQQuery<Node = any> {
     /** 
-     * Compile query selector into AST .
+     * Compile query selector into AST.
      */
-    compile(selector: string, trace?: boolean): ASTQQuery
+    compile(selector: string, trace?: boolean): ASTQQuery;
 
     /** 
-     * Dump the query AST  .
+     * Dump the query AST.
      */
-    dump(): any
+    dump(): string;
 
     /**
      * Execute the query AST onto `node`.
      */
-    execute(node: Node, adapter: ASTQAdapter<Node>, params: any[], funcs: any[], trace?: boolean): any
-
+    execute(node: Node, adapter: ASTQAdapter<Node>, params: any[], funcs: any[], trace?: boolean): Node[];
 }
 
-export = ASTQ
+export = ASTQ;
