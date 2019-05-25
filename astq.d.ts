@@ -98,7 +98,7 @@ astq.func("depth", function (adapter, node) => {
  * provided. By default ASTq has adapters for use with ASTy, XML DOM, Parse5 and
  * Mozilla AST. 
  */
-export interface ASTQAdapter<Node = any> {
+interface ASTQAdapter<Node = any> {
     /**
      * Taste node to be sure this adapter is intended to handle it.
      */
