@@ -6,6 +6,7 @@
     "license":     "MIT",
     "browser":     "lib/astq.browser.js",
     "main":        "lib/astq.node.js",
+    "types":       "astq.d.ts",
     "repository": {
         "type": "git",
         "url":  "https://github.com/rse/astq.git"
