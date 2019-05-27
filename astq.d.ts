@@ -69,22 +69,17 @@ astq.func("depth", function (adapter, node) => {
   /**
    * Compile `selector` DSL into an internal query object for subsequent
    * processing by `execute`. If [trace] is `true` the compiling is dumped
-   * to the console. . Also it could be a [[TraceListener]] function in
-   *  which case nothing will be printed in console
-   * and instead it will be notified with [[StepTraceEvent]] events. 
-   * Returns the query object.
+   * to the console.Returns the query object.
    */
-  compile(selector: string, trace?: boolean | TraceListener<Node>): ASTQQuery<Node>;
+  compile(selector: string, trace?: boolean): ASTQQuery<Node>;
 
   /**
    * Execute the previously compiled `query` (see compile above) at `node`. The
    * optional `params` object can provide parameters for the {name} query
-   * constructs. If `trace` is `true` the execution is dumped to the console.
-   * Also it could be a [[TraceListener]] function in which case nothing will be printed in console
-   * and instead it will be notified with [[StepTraceEvent]] events. 
+   * constructs. If `trace` is `true` the execution is dumped to the console. 
    * Returns an array of zero or more matching AST nodes.
    */
-  execute(node: Node, query: ASTQQuery<Node>, params?: any, trace?: boolean | TraceListener<Node>): Node[];
+  execute(node: Node, query: ASTQQuery<Node>, params?: any, trace?: boolean): Node[];
 
   /**
    * Just the convenient combination of compile and execute: 
@@ -94,65 +89,9 @@ astq.func("depth", function (adapter, node) => {
    * Use this as the standard query method except you need more control. The
    * optional [[params]] object can provide parameters for the {name} query
    * constructs. If [[trace]] is true the compiling and execution is dumped to the
-   * console. Also it could be a [[TraceListener]] function in which case nothing will be printed in console
-   * and instead it will be notified with [[StepTraceEvent]] events. 
-   * 
-   * Returns an array of zero or more matching AST nodes.
+   * console. Returns an array of zero or more matching AST nodes.
    */
-  query(node: Node, selector: String, params?: any, trace?: boolean | TraceListener<Node>): Node[];
-}
-
-type TraceListener<Node = any> = (e: StepTraceEvent<Node>) => void
-
-interface StepTraceEvent<Node = any> {
-  /**
-   * User node's depth in its AST
-   */
-  nodeDepth: number,
-
-  /**
-   * Query node's depth in its AST
-   */
-  queryNodeDepth: number
-
-  /*** 
-   * bucket for user meta data 
-   */
-  meta?: any
-
-  /**
-   * `begin` means just before user node is being filter by current step according to `queryNode` 
-   */
-  event: 'begin' | 'end'
-
-  /**
-   * Query AST node being processing user nodes at this step.
-   */
-  queryNode: ASTyNode
-
-  /**
-   * User Node being processed at this moment. 
-   */
-  node: Node
-
-  /**
-  * Timestamp taken when the query step begin or ended, so when joining all query steps it's possible
-  * to obtain the number of milliseconds it took. 
-  */
-  timestamp: number
-
-  /**
-  * Friendly msg representing this step state
-  */
-  traceMsg: string
-
-  /**w
-   * Current nodes matches at the end of this step. 
-   * These nodes will be the input for the next step. 
-   * This property is only defined for event=='end'
-   */
-  matches?: Node[]
-
+  query(node: Node, selector: String, params?: any, trace?: boolean): Node[];
 }
 
 /**
@@ -216,11 +155,6 @@ export interface ASTQQuery<Node = any> {
   ast: ASTyNode
 
   /**
-   * Serializes this query instance as a json string.
-   */
-  serialize(): string
-
-  /**
    * Same as [[serialize]] but it returns the JSON parsed object.
    */
   toJSONObject(): SerializedASTyNode
@@ -233,14 +167,11 @@ export interface ASTQQuery<Node = any> {
 
 export default ASTQ
 
-type QueryExpressions = 'Query' | 'Path' | 'Step' | 'Step' | 'Axis' | 'Match' | 'Match' | 'Match' | 'Filter' | 'ConditionalBinary' | 'ConditionalTernary' | 'Logical' | 'Logical' | 'Bitwise' | 'Bitwise' | 'Bitwise' | 'Relational' | 'Bitwise' | 'Arithmetical' | 'Arithmetical' | 'Unary' | 'FuncCall' | 'Attribute' | 'Attribute' | 'Param' | 'Identifier' | 'LiteralString' | 'LiteralString' | 'LiteralRegExp' | 'LiteralNumber' | 'LiteralNumber' | 'LiteralNumber' | 'LiteralNumber' | 'LiteralNumber' | 'LiteralValue' | 'LiteralValue' | 'LiteralValue' | 'LiteralValue' | 'LiteralValue'
-
 /** 
 * Internal Node implementation of the query's AST. https://github.com/rse/asty
 * @internal 
 * */
 interface ASTyNode {
-
   /** TODO */
   add(...any: any[]): any
   attrs(): ASTyNodeAttrs
@@ -254,7 +185,6 @@ interface ASTyNode {
   dump(maxDepth?: number, colorize?: (type: string, txt: string) => string): string
   /** TODO */
   get(...args: any[]): any
-  init(ctx: ASTYCtx, T: string, A: ASTyNodeAttrs, C: SerializedASTyNode[]): ASTyNode
   ins(pos: number, ...args: any[]): void
   merge(node: ASTyNode, takePos: boolean, attrMap: ASTyNodeAttrs): ASTyNode
   nth(): any
@@ -262,18 +192,19 @@ interface ASTyNode {
   pos(line: number, column: number, offset: number): void
   pos(): SerializedASTyNodeLocation
   /** 
-   * returns the JSON string of [[DumpedNode]], meaning that JSON.parse(node.serialize()) is DumpedNode. This
+   * Returns the JSON string of [[DumpedNode]], meaning that JSON.parse(node.serialize()) is DumpedNode. This
    * also works to deserialize the object and convert it back to a ASTYNode:
    * `query.ast.ctx.constructor.unserialize(query.ast.serialize())` 
    */
   serialize(): string
   /** TODO */
   set(...args: any): any
-  type(): QueryExpressions
-  type(t: QueryExpressions): void
+  type(): string
+  type(t: string): void
   /** TODO */
   unset(...args: any[]): any
 }
+
 interface ASTyNodeAttrs {
   [name: string]: any
 }
@@ -315,10 +246,3 @@ interface SerializedASTyNodeLocation {
    */
   '0': number
 }
-
-/** 
- * TODO: remove this
-* Internal part of Node implementation of the query's AST. https://github.com/rse/asty. 
-* @internal 
-* */
-type ASTYCtx = any
