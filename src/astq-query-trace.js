@@ -27,6 +27,9 @@
 import util from "./astq-util.js"
 
 export default class ASTQQueryTrace {
+    traceInitialize () {
+        this.lastTrace = []
+    }
     /*  determine output prefix based on tree depth  */
     prefixOf (Q, T) {
         let depth = 0
@@ -47,9 +50,17 @@ export default class ASTQQueryTrace {
         if (!this.trace)
             return
         let { prefix1, prefix2 } = this.prefixOf(Q, T)
+        this.lastTrace.push({
+            event: "begin",
+            prefix1,
+            prefix2,
+            queryType: Q.type(),
+            nodeType: this.adapter.getNodeType(T),
+            timestamp: Date.now()
+        })
         console.log("ASTQ: execute: | " +
-            util.pad(prefix1 + Q.type() + " (", -60) + " | " +
-            prefix2 + this.adapter.getNodeType(T))
+        util.pad(prefix1 + Q.type() + " (", -60) + " | " +
+        prefix2 + this.adapter.getNodeType(T))
     }
 
     /*  end tracing step  */
@@ -58,12 +69,14 @@ export default class ASTQQueryTrace {
             return
         let { prefix1, prefix2 } = this.prefixOf(Q, T)
         let result
+        let resultData = []
         if (val === undefined)
             result = "undefined"
         else if (typeof val === "object" && val instanceof Array) {
             result = "["
             val.forEach((node) => {
                 result += "node(" + this.adapter.getNodeType(node) + "),"
+                resultData.push(this.adapter.getNodeType(node))
             })
             result = result.replace(/,$/, "") + "]"
         }
@@ -71,6 +84,15 @@ export default class ASTQQueryTrace {
             result = typeof val + "(" + val + ")"
         if (result.length > 60)
             result = result.substr(0, 60) + "..."
+        this.lastTrace.push({
+            event: "end",
+            prefix1,
+            prefix2,
+            queryType: Q.type(),
+            nodeType: this.adapter.getNodeType(T),
+            timestamp: Date.now(),
+            value: resultData
+        })
         console.log("ASTQ: execute: | " +
             util.pad(prefix1 + "): " + result, -60) + " | " +
             prefix2 + this.adapter.getNodeType(T))

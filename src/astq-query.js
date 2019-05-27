@@ -44,6 +44,7 @@ export default class ASTQQuery {
     constructor (selector) {
         this.asty = new ASTY()
         this.ast = null
+        this.lastTrace = null
         if (selector)
             this.compile(selector)
     }
@@ -82,7 +83,9 @@ export default class ASTQQuery {
             console.log("ASTQ: execute: +---------------------------------------" +
                 "-----------------------+----------------------------------------")
         let qe = new ASTQQueryExec(adapter, params, funcs, trace)
-        return qe.execQuery(this.ast, node)
+        const result = qe.execQuery(this.ast, node)
+        this.lastTrace = qe.lastTrace || this.lastTrace
+        return result
     }
 }
 

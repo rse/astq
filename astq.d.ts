@@ -142,6 +142,8 @@ interface ASTQQuery<Node = any> {
      */
     dump(): string;
 
+    ast: ASTYNode
+
     /**
      * Execute the query AST onto `node`.
      */
@@ -149,3 +151,68 @@ interface ASTQQuery<Node = any> {
 }
 
 export = ASTQ;
+
+/** 
+ * Internal Node implementation of the query's AST. https://github.com/rse/asty
+ * @internal 
+ * */
+interface ASTYNode{
+//   add: add(...args) { if (args.length === 0) throw new Error("add: invalid number of arguments"); let _add = node => {…}
+attrs(): Attrs
+ child(pos: number): ASTYNode|undefined
+childs(): ASTYNode[]
+childs(...c: ASTYNode[]): void
+ create(T:string, A: Attrs, C: DumpedNode[]): ASTYNode
+// del: del(...args) { if (args.length === 0) throw new Error("del: invalid number of arguments"); args.forEach(node => {…}
+ dump(maxDepth = Infinity, colorize = (type, txt) => aby): string
+// get: get(...args) { if (args.length !== 1) throw new Error("get: invalid number of arguments"); if (typeof args[0] === "object" && args[0] instanceof Array) { return args[0].map(key => {…}
+  init(ctx: ASTYCts,T:string, A: Attrs, C: DumpedNode[]): ASTYNode
+ins: ins(pos: number, ...args_ any[]): void
+ merge(node: ASTYNode, takePos = false, attrMap = Attrs) : ASTYNode
+nth(): TODO
+parent(): ASTYNode
+ pos(line: number, column: number, offset: number): void
+ pos(): DumpedNodeLocation
+ /** returns the JSON string of [[DumpedNode]], meaning that JSON.parse(node.serialize()) is DumpedNode. This also works to deserialize the object and convert it back to a ASTYNode: `query.ast.ctx.constructor.unserialize(query.ast.serialize())` */
+serialize(): string
+// set: set(...args) { if (args.length === 1 && typeof args[0] === "object") { Object.keys(args[0]).forEach(key => {…}
+type(): string
+type(t: string): void
+// unset: unset(...args) { if (args.length === 1 && typeof args[0] === "object" && args[0] instanceof Array) { args[0].forEach(key => {…}
+// walk: walk(cb, when = "downward") { let _walk = (node, depth, parent) => {…}
+}
+
+
+interface DumpedNode {
+  /**
+   * Node's type name.
+   */
+  T: string
+  /**
+   * Node's location in the initial query string
+   */
+  L: DumpedNodeLocation 
+  /**
+   * Node's children
+   */
+  C: DumpedNode[]
+  /**
+   * Node's attributes
+   */
+  A: Attrs
+}
+
+interface  DumpedNodeLocation {
+  /**
+   * Line number
+   */
+  L:number
+  /**
+   * Column number
+   */
+  C: number
+  /**
+   * Offset
+   */
+  '0': number
+}

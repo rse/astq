@@ -177,5 +177,29 @@ describe("ASTq Library", function () {
         expect(astq.query(node1, "* / * / * / * !")).to.be.deep.equal([ node8, node9 ])
         expect(astq.query(node1, "* / * ! [ count(/ * ! / *) == 3 ]")).to.be.deep.equal([ node3 ])
     })
+
+    it("ast.compile returns a ASTQuery instance with its own ast and a dump method", function () {
+        const query = astq.compile("/foo", true)
+        expect(typeof query.ast.childs === "function")
+        expect(typeof query.ast.walk === "function")
+        expect(query.dump().replace(/[\s]+/gm, " ").trim()).to.equal(`
+Query [1,1]
+    └── Path [1,1]
+        └── Step [1,1]
+            ├── Axis (op: "/", type: "*") [1,1]
+            └── Match (id: "foo") [1,2]
+        `.replace(/[\s]+/gm, " ").trim())
+        expect(query.ast.serialize()).equals("{\"ASTy\":{\"T\":\"Query\",\"L\":{\"L\":1,\"C\":1,\"O\":0},\"C\":[{\"T\":\"Path\",\"L\":{\"L\":1,\"C\":1,\"O\":0},\"C\":[{\"T\":\"Step\",\"L\":{\"L\":1,\"C\":1,\"O\":0},\"C\":[{\"T\":\"Axis\",\"L\":{\"L\":1,\"C\":1,\"O\":0},\"A\":{\"op\":\"/\",\"type\":\"*\"}},{\"T\":\"Match\",\"L\":{\"L\":1,\"C\":2,\"O\":1},\"A\":{\"id\":\"foo\"}}]}]}]}}")
+    })
+
+    it("trace should be capturable as data with query.lastTrace", function () {
+        const query = astq.compile( "// * [ depth() == 3 ]", true)
+        expect(query.lastTrace).deep.equals([])
+        const result = astq.execute(node1, query, {}, true)
+        expect(result).to.be.deep.equal([ node5, node6, node7 ])
+        expect(query.lastTrace).to.length.above(10)
+        const lastTraceItem = query.lastTrace[query.lastTrace.length - 1]
+        expect(lastTraceItem.timestamp > 0).to.be.true
+    })
 })
 
