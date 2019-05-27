@@ -1,3 +1,4 @@
 node_modules
 smp/node_modules
 lib
+.DS_Store
