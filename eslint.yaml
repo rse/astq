@@ -63,4 +63,8 @@ rules:
     object-property-newline:             off
     curly:                               off
     space-in-parens:                     off
+    array-bracket-spacing:               off
+    prefer-const:                        off
+    lines-between-class-members:         off
+    quote-props:                         off
 
