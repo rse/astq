@@ -42,10 +42,10 @@ export default class ASTQAdapterMozAST {
     static getChildNodes (node, type) {
         let childs = []
         let checkField = (node, field) => {
-            if (   node.hasOwnProperty(field)
+            if (   Object.prototype.hasOwnProperty.call(node, field)
                 && this.taste(node[field]))
                 childs.push(node[field])
-            else if (   node.hasOwnProperty(field)
+            else if (   Object.prototype.hasOwnProperty.call(node, field)
                      && typeof node[field] === "object"
                      && node[field] instanceof Array) {
                 node[field].forEach((node) => {
@@ -70,7 +70,7 @@ export default class ASTQAdapterMozAST {
     static getNodeAttrNames (node) {
         let names = []
         for (let field in node)
-            if (   node.hasOwnProperty(field)
+            if (   Object.prototype.hasOwnProperty.call(node, field)
                 && typeof node[field] !== "object"
                 && field !== "type"
                 && field !== "loc")
@@ -78,7 +78,7 @@ export default class ASTQAdapterMozAST {
         return names
     }
     static getNodeAttrValue (node, attr) {
-        if (   node.hasOwnProperty(attr)
+        if (   Object.prototype.hasOwnProperty.call(node, attr)
             && typeof node[attr] !== "object"
             && attr !== "type"
             && attr !== "loc")
