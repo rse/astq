@@ -21,7 +21,7 @@
         "pegjs":                  "0.10.0",
         "pegjs-otf":              "1.2.15",
         "pegjs-util":             "1.4.17",
-        "asty":                   "1.8.6",
+        "asty":                   "1.8.7",
         "cache-lru":              "1.1.9"
     },
     "devDependencies": {
