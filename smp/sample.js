@@ -138,3 +138,23 @@ const ASTQ = require("..")
     })
 })();
 
+/*  query UniST/MDAST  */
+(() => {
+    let source =
+        "# Foo\n" +
+        "Foo\n" +
+        "# Bar\n" +
+        "Bar\n"
+    const unified  = require("unified")
+    const markdown = require("remark-parse")
+    const ast = unified().use(markdown).parse(source)
+    const astq = new ASTQ()
+    astq.adapter("unist")
+    astq.query(ast, `
+        /* query all text elements */
+        // text
+    `).forEach((node) => {
+        console.log(`FOUND UniST: tag: ${node.type}, value: ${node.value}`)
+    })
+})();
+
