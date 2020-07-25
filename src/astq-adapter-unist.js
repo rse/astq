@@ -30,7 +30,10 @@ export default class ASTQAdapterUniST {
             && node.type !== "")
     }
     static getParentNode (node /*, type */) {
-        throw new Error("UniST AST does not support parent node traversal")
+        if (typeof node.parent === "object" && node.parent !== null)
+            return node.parent
+        else
+            throw new Error("Your UniST AST does not support parent node traversal")
     }
     static getChildNodes (node /*, type */) {
         return ((typeof node.children === "object"
