@@ -300,7 +300,7 @@ TypeScript type definitions):
   Register one or more custom tree access adapter(s) to support arbitrary AST-style
   data structures. The `ASTQAdapter` has to conform to a particular
   duck-typed interface. See below for more information.
-  By default ASTq has built-in adapters for ASTy, XML DOM, Parse5, Cheerio, JSON and Mozilla AST.
+  By default ASTq has built-in adapters for ASTy, XML DOM, Parse5, Cheerio, UniST, JSON and Mozilla AST.
   All those "taste" the node passed to `ASTQ#query` and hence are auto-selected.
   Calling `adapter()` causes these to be replaced with a single custom adapter.
   Its "tasting" can be disabled with option `force` set to `true`.
@@ -360,7 +360,7 @@ TypeScript type definitions):
 ### ASTQAdapter API
 
 For accessing arbitrary AST-style data structures, an adapter has to be
-provided. By default ASTq has adapters for use with ASTy, XML DOM, Parse5 and
+provided. By default ASTq has adapters for use with ASTy, XML DOM, Parse5, Cheerio, UniST, JSON and
 Mozilla AST. The `ASTQAdapter` interface is:
 
 - `ASTQAdapter#taste(node: Object): Boolean`:<br/>
