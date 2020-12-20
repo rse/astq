@@ -27,14 +27,14 @@
 /* jshint -W030 */
 /* eslint no-unused-expressions: 0 */
 
-var chai = require("chai")
-var expect = chai.expect
+const chai = require("chai")
+const expect = chai.expect
 chai.config.includeStack = true
 
-var ASTQ = require("../lib/astq.node.js")
+const ASTQ = require("../lib/astq.node.js")
 
 describe("ASTq Library", function () {
-    var astq = new ASTQ()
+    const astq = new ASTQ()
 
     it("API availability", function () {
         expect(astq).to.respondTo("version")
@@ -63,17 +63,17 @@ describe("ASTq Library", function () {
      *          node7
      *      node4
      */
-    var ASTY = require("asty")
-    var asty = new ASTY()
-    var node1 = asty.create("node1")
-    var node2 = asty.create("node2")
-    var node3 = asty.create("node3")
-    var node4 = asty.create("node4")
-    var node5 = asty.create("node5")
-    var node6 = asty.create("node6").set("foo", "bar")
-    var node7 = asty.create("node7").set("quux", "baz")
-    var node8 = asty.create("node8")
-    var node9 = asty.create("node9")
+    const ASTY = require("asty")
+    const asty = new ASTY()
+    const node1 = asty.create("node1")
+    const node2 = asty.create("node2")
+    const node3 = asty.create("node3")
+    const node4 = asty.create("node4")
+    const node5 = asty.create("node5")
+    const node6 = asty.create("node6").set("foo", "bar")
+    const node7 = asty.create("node7").set("quux", "baz")
+    const node8 = asty.create("node8")
+    const node9 = asty.create("node9")
     node1.add(node2)
     node1.add(node3)
     node1.add(node4)

@@ -67,4 +67,5 @@ rules:
     prefer-const:                        off
     lines-between-class-members:         off
     quote-props:                         off
+    multiline-ternary:                   off
 

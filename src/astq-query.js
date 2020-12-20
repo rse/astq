@@ -34,7 +34,7 @@ import ASTQQueryExec from "./astq-query-exec.js"
 /*  get query parser (by loading and on-the-fly compiling PEG.js grammar)  */
 const PEG = require("pegjs-otf")
 const ASTQQueryParse = PEG.generateFromFile(
-    /* eslint no-path-concat: off */
+    /* eslint node/no-path-concat: off */
     __dirname + "/astq-query-parse.pegjs",
     { optimize: "speed", cache: true }
 )
