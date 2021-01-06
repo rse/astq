@@ -429,7 +429,7 @@ Additionally, there are two transpilation results: first, there is a
 compressed `astq.browser.js` for Browser environments. Second, there is
 an uncompressed `astq.node.js` for Node.js environments.
 
-The Browser variant `astq.node.js` has all external dependencies `asty`,
+The Browser variant `astq.browser.js` has all external dependencies `asty`,
 `pegjs-otf`, `pegjs-util`, and `cache-lru` directly embedded. The
 Node.js variant `astq.node.js` still requires the external dependencies
 `asty`, `pegjs-otf`, `pegjs-util`, and `cache-lru`.
