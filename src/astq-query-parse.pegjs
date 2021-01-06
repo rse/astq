@@ -94,10 +94,10 @@ expr
     =   exprConditional
 
 exprConditional
-    =   e1:exprLogicalOr _ "?:" _ e2:exprLogicalOr {
+    =   e1:exprLogicalOr _ "?:" _ e2:exprConditional {
             return ast("ConditionalBinary").add(e1, e2)
         }
-    /   e1:exprLogicalOr _ "?" _ e2:exprLogicalOr _ ":" _ e3:exprLogicalOr {
+    /   e1:exprLogicalOr _ "?" _ e2:exprConditional _ ":" _ e3:exprConditional {
             return ast("ConditionalTernary").add(e1, e2, e3)
         }
     /   exprLogicalOr
