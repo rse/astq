@@ -80,7 +80,7 @@ export default class ASTQQuery {
     execute (node, adapter, params, funcs, trace) {
         if (trace)
             console.log("ASTQ: execute: +---------------------------------------" +
-                "-----------------------+----------------------------------------")
+                "----------------------------------------------------------------")
         let qe = new ASTQQueryExec(adapter, params, funcs, trace)
         return qe.execQuery(this.ast, node)
     }
