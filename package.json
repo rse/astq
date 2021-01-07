@@ -1,22 +1,22 @@
 {
-    "name":        "astq",
-    "version":     "2.7.3",
-    "description": "Abstract Syntax Tree (AST) Query Engine",
-    "keywords":    [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
-    "license":     "MIT",
-    "browser":     "lib/astq.browser.js",
-    "main":        "lib/astq.node.js",
+    "name":                       "astq",
+    "version":                    "2.7.3",
+    "description":                "Abstract Syntax Tree (AST) Query Engine",
+    "keywords":                   [ "abstract", "syntax", "tree", "query", "engine", "adaptable" ],
+    "license":                    "MIT",
+    "browser":                    "lib/astq.browser.js",
+    "main":                       "lib/astq.node.js",
     "repository": {
-        "type": "git",
-        "url":  "https://github.com/rse/astq.git"
+        "type":                   "git",
+        "url":                    "https://github.com/rse/astq.git"
     },
     "author": {
-        "name":  "Dr. Ralf S. Engelschall",
-        "email": "rse@engelschall.com",
-        "url":   "http://engelschall.com"
+        "name":                   "Dr. Ralf S. Engelschall",
+        "email":                  "rse@engelschall.com",
+        "url":                    "http://engelschall.com"
     },
-    "homepage": "https://github.com/rse/astq",
-    "bugs":     "https://github.com/rse/astq/issues",
+    "homepage":                   "https://github.com/rse/astq",
+    "bugs":                       "https://github.com/rse/astq/issues",
     "dependencies": {
         "pegjs":                  "0.10.0",
         "pegjs-otf":              "1.2.17",
@@ -51,7 +51,7 @@
         "node":                   ">=4.0.0"
     },
     "scripts": {
-        "prepublishOnly":  "grunt default",
-        "build":           "grunt default"
+        "prepublishOnly":         "grunt default",
+        "build":                  "grunt default"
     }
 }
