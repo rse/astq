@@ -69,11 +69,15 @@ export default class ASTQUtil {
             try {
                 switch (type) {
                     case "boolean":
-                        if (typeof value !== "boolean")
+                        if (typeof value === "object" && value instanceof Array)
+                            value = value.length !== 0
+                        else if (typeof value !== "boolean")
                             value = Boolean(value)
                         break
                     case "number":
-                        if (typeof value !== "number")
+                        if (typeof value === "object" && value instanceof Array)
+                            value = value.length
+                        else if (typeof value !== "number")
                             value = Number(value)
                         break
                     case "string":
