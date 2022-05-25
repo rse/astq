@@ -1,6 +1,6 @@
 ##
 ##  ASTq -- Abstract Syntax Tree (AST) Query Engine
-##  Copyright (c) 2014-2021 Dr. Ralf S. Engelschall <rse@engelschall.com>
+##  Copyright (c) 2014-2022 Dr. Ralf S. Engelschall <rse@engelschall.com>
 ##
 ##  Permission is hereby granted, free of charge, to any person obtaining
 ##  a copy of this software and associated documentation files (the
@@ -24,6 +24,6 @@
 
 major: 2
 minor: 7
-micro: 5
-date:  20210107
+micro: 8
+date:  20220525
 
