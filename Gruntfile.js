@@ -33,7 +33,7 @@ module.exports = function (grunt) {
         version: grunt.file.readYAML("VERSION.yml"),
         eslint: {
             options: {
-                configFile: "eslint.yaml"
+                overrideConfigFile: "eslint.yaml"
             },
             "astq": [ "src/**/*.js", "tst/**/*.js" ]
         },

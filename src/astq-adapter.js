@@ -28,7 +28,7 @@ export default class ASTQAdapter {
         return this
     }
     register (adapter, force = false) {
-        this._adapters.unshift({ adapter: adapter, force: force })
+        this._adapters.unshift({ adapter, force })
         return this
     }
     unregister (adapter) {
