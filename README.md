@@ -4,11 +4,11 @@ ASTq
 
 Abstract Syntax Tree (AST) Query Engine
 
-<p/>
-<img src="https://nodei.co/npm/astq.png?downloads=true&stars=true" alt=""/>
-
-<p/>
-<img src="https://david-dm.org/rse/astq.png" alt=""/>
+[![github (author stars)](https://img.shields.io/github/stars/rse?logo=github&label=author%20stars&color=%233377aa)](https://github.com/rse)
+[![github (author followers)](https://img.shields.io/github/followers/rse?label=author%20followers&logo=github&color=%234477aa)](https://github.com/rse)
+<br/>
+[![npm (project release)](https://img.shields.io/npm/v/astq?logo=npm&label=npm%20release&color=%23cc3333)](https://npmjs.com/astq)
+[![npm (project downloads)](https://img.shields.io/npm/dm/asty?logo=npm&label=npm%20downloads&color=%23cc3333)](https://npmjs.com/astq)
 
 Installation
 ------------
