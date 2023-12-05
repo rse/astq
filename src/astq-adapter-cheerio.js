@@ -24,12 +24,21 @@
 
 export default class ASTQAdapterCheerio {
     static taste (node) {
-        /* global Node: true */
-        return (typeof node === "object"
+        /* global Document: true */
+        /* global Element: true */
+        return (
+            typeof node === "object"
             && node !== null
-            && !(typeof Node === "object" && node instanceof Node)
-            && typeof node.tagName === "string"
-            && node.tagName !== "")
+            && ((
+                !(typeof Element === "object" && node instanceof Element)
+                && typeof node.tagName === "string"
+                && node.tagName !== ""
+            ) || (
+                !(typeof Document === "object" && node instanceof Document)
+                && typeof node.type === "string"
+                && node.type === "root"
+            ))
+        )
     }
     static getParentNode (node /*, type */) {
         return node.parentNode
