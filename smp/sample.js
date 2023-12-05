@@ -134,7 +134,7 @@ const ASTQ = require("..")
     `).forEach((node) => {
         let tag = node.tagName
         let value = astq.query(node, `// "#text"`).map((node) => node.nodeValue).join("")
-        console.log(`FOUND PARSE5: tag: ${tag}, value: ${value}`)
+        console.log(`FOUND CHEERIO: tag: ${tag}, value: ${value}`)
     })
 })();
 
