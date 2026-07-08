@@ -19,8 +19,8 @@
     "bugs":                       "https://github.com/rse/astq/issues",
     "dependencies": {
         "peggy":                  "4.0.2",
-        "pegjs-otf":              "2.0.2",
-        "pegjs-util":             "2.0.1",
+        "pegjs-otf":              "2.1.0",
+        "pegjs-util":             "2.1.0",
         "asty":                   "1.8.21",
         "cache-lru":              "1.2.0"
     },
@@ -43,8 +43,11 @@
         "@babel/preset-env":      "7.24.0",
         "uglifyify":              "5.0.2",
         "browserify-header":      "1.1.0",
-        "browserify-derequire":   "1.1.1",
+        "browserify-derequire":   "1.2.0",
         "browserify-replace":     "1.1.0"
+    },
+    "overrides": {
+        "escope":                 "4.0.0"
     },
     "engines": {
         "node":                   ">=12.0.0"
