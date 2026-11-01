@@ -19,7 +19,7 @@
     "homepage":                   "https://github.com/rse/astq",
     "bugs":                       "https://github.com/rse/astq/issues",
     "dependencies": {
-        "peggy":                  "4.0.2",
+        "peggy":                  "4.0.3",
         "pegjs-otf":              "2.1.0",
         "pegjs-util":             "2.1.0",
         "asty":                   "1.8.21",
